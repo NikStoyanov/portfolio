@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Meta on Nikola Stoyanov</title>
+    <link>https://niksto.net/tags/meta/</link>
+    <description>Recent content in Meta on Nikola Stoyanov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 13 Nov 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://niksto.net/tags/meta/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>About</title>
+      <link>https://niksto.net/about/</link>
+      <pubDate>Tue, 13 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://niksto.net/about/</guid>
+      <description>About Hello! My name is Nikola Stoyanov and I am a PhD student at the University of Manchester in the Mechanical, Aerospace and Civil Engineering department. I also did my MEng degree in Civil Engineering - again in Manchester.
+  My research interests are the structural and material performance of low carbon steel when exposed to cryogenic temperatures (more specifically Liquefied Natural Gas) and followed by hydrocarbon fire.</description>
+    </item>
+    
+    <item>
+      <title>First Blog Post</title>
+      <link>https://niksto.net/posts/first_post/</link>
+      <pubDate>Wed, 21 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://niksto.net/posts/first_post/</guid>
+      <description>Hi I have just finished building this blog from Emacs and Org Mode. My intention is to blog about my work during my PhD and since I do almost all of my report writing work in Org Mode I needed a system with which I can upload content quickly and easily.
+The website is built using the script detailed in the blog of Dennis Ogbe using nothing else but the built-in functionality of Org Mode and some elisp.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.51" />
+
+    
+    
+    
+
+<title>Emacs Configuration File • Nikola Stoyanov</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Emacs Configuration File"/>
+<meta name="twitter:description" content="Emacs Configuration Here is the compulsory screenshot of my Emacs setup and this page being edited.
+  Below I have presented the main parts of my configuration which might be of interest.
+Initialize Load melpa and custom packages. Here I also load ox-rss which is later used to generate the rss feed for this blog.
+(package-initialize) ;; load emacs 24&#39;s package system. Add MELPA repository. (when (&gt;= emacs-major-version 24) (require &#39;package) (add-to-list &#39;package-archives &#39;(&quot;melpa&quot; ."/>
+
+<meta property="og:title" content="Emacs Configuration File" />
+<meta property="og:description" content="Emacs Configuration Here is the compulsory screenshot of my Emacs setup and this page being edited.
+  Below I have presented the main parts of my configuration which might be of interest.
+Initialize Load melpa and custom packages. Here I also load ox-rss which is later used to generate the rss feed for this blog.
+(package-initialize) ;; load emacs 24&#39;s package system. Add MELPA repository. (when (&gt;= emacs-major-version 24) (require &#39;package) (add-to-list &#39;package-archives &#39;(&quot;melpa&quot; ." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://niksto.net/posts/emacs_config/" /><meta property="article:published_time" content="2018-02-27T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-02-27T00:00:00&#43;00:00"/><meta property="og:site_name" content="Title" />
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/scss/hyde-hyde.9181f25ed2263aeb878ec6f8a84f10c4ebb16150000fca8767308880bdde5ca0.css" integrity="sha256-kYHyXtImOuuHjsb4qE8QxOuxYVAAD8qHZzCIgL3eXKA=">
+
+
+<link rel="stylesheet" href="/scss/print.2744dcbf8a0b2e74f8a50e4b34e5f441be7cf93cc7de27029121c6a09f9e77bc.css" integrity="sha256-J0Tcv4oLLnT4pQ5LNOX0Qb58&#43;TzH3icCkSHGoJ&#43;ed7w=" media="print">
+
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://niksto.net/">Nikola Stoyanov</a>
+      </span>
+      
+      <p class="site__description">
+         Personal Website 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Nikola Stoyanov</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/posts/">
+						<span>Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/portfolio/">
+						<span>Portfolio</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/about/">
+						<span>About</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	<a href="https://twitter.com/nikola3141" rel="me"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/NikStoyanov" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	<a href="https://linkedin.com/in/nikola-stoyanov-73709676" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:nikst@posteo.net" rel="me"><i class="fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+</section>
+
+      </div>
+    </div>
+    <div class="copyright">
+  &copy; 2018 Nikola Stoyanov.
+  <a href="https://creativecommons.org/licenses/by-sa/4.0">Some Rights Reserved</a>.
+  Built with <a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+  
+</div>
+
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1>Emacs Configuration File</h1>
+    
+    
+<div class="post__meta">
+    
+    
+      <i class="fas fa-calendar-alt"></i> Feb 27, 2018
+    
+    
+    
+      
+      
+          in
+          
+          
+              <a class="badge badge-category" href="/categories/emacs">EMACS</a>
+              
+          
+      
+    
+    
+    
+      
+      
+          <br/>
+           <i class="fas fa-tags"></i>
+          
+          <a class="badge badge-tag" href="/tags/emacs">emacs</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/orgmode">orgmode</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/research">research</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/reproducible">reproducible</a>
+          
+      
+    
+    
+    <br/>
+    <i class="fas fa-clock"></i> 8 min read
+</div>
+
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<h2 id="emacs-configuration">Emacs Configuration</h2>
+
+<p>Here is the compulsory screenshot of my Emacs setup and this page
+being edited.</p>
+
+<figure>
+    <img src="/img/2018_02_27_screenshot.png" width="100%" height="100%"/> 
+</figure>
+
+
+<p>Below I have presented the main parts of my configuration which might
+be of interest.</p>
+
+<h2 id="initialize">Initialize</h2>
+
+<p>Load melpa and custom packages. Here I also load ox-rss which is later
+used to generate the rss feed for this blog.</p>
+
+<pre><code class="language-apache">(package-initialize)
+
+;; load emacs 24's package system. Add MELPA repository.
+(when (&gt;= emacs-major-version 24)
+  (require 'package)
+  (add-to-list
+   'package-archives
+   '(&quot;melpa&quot; . &quot;http://melpa.milkbox.net/packages/&quot;)
+   t))
+
+;; add custom packages which are not part of melpa
+;; ox-rss
+(add-to-list 'load-path &quot;~/.emacs.d/lisp/&quot;)
+
+</code></pre>
+
+<h2 id="appearance">Appearance</h2>
+
+<p>I use doom as my Emacs theme, nlinum for the line numbering, neotree
+for the file explorer and spaceline for my Emacs mode line.</p>
+
+<p>I also track for whitespaces which marks them in my buffer so I can
+delete them as they deserve so. Finally I setup some speed ups for
+Emacs by disabling the garbage collection and all version control
+(besides Git of course&hellip;), which is directly taken from <a href="https://github.com/jkitchin/scimax">Scimax</a>.</p>
+
+<pre><code class="language-apache">;; appearance
+(require 'nlinum)           ; line number display
+(require 'neotree)          ; folder tree
+(require 'doom-themes)      ; custom theme
+(require 'spaceline-config) ; spacemacs package for the mode line
+;; global settings (defaults)
+(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+      doom-themes-enable-italic t) ; if nil, italics is universally disabled
+;; load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
+;; may have their own settings.
+(load-theme 'doom-one t)
+;; enable flashing mode-line on errors
+(doom-themes-visual-bell-config)
+;; enable custom neotree theme and configure
+(doom-themes-neotree-config)  ; all-the-icons fonts must be installed!
+(setq doom-neotree-enable-file-icons t)
+(setq doom-neotree-enable-folder-icons t)
+(setq doom-neotree-enable-chevron-icons t)
+(setq doom-neotree-file-icons t)
+(setq doom-neotree-enable-type-colors t)
+;; set line numbering
+(defconst modi/linum-mode-hooks '(verilog-mode-hook
+                                  apache-mode-hook
+                                  cperl-mode-hook
+                                  c-mode-hook
+                                  python-mode-hook
+                                  matlab-mode-hook
+                                  sh-mode-hook
+                                  web-mode-hook
+                                  html-mode-hook
+                                  css-mode-hook
+                                  makefile-gmake-mode-hook
+                                  tcl-mode-hook
+                                  org-hook)
+  &quot;List of hooks of major modes in which a linum mode should be enabled.&quot;)
+(when global-linum-mode
+  (global-nlinum-mode -1))
+(dolist (hook modi/linum-mode-hooks)
+  (add-hook hook #'nlinum-mode))
+(setq nlinum-highlight-current-line t)
+;; Corrects (and improves) org-mode's native fontification.
+(doom-themes-org-config)
+;; emacs general behavior setup
+(when (display-graphic-p)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1))
+(setq inhibit-startup-screen t)
+(tool-bar-mode 0)
+(setq initial-scratch-message nil)
+(setq scroll-step            1
+      scroll-conservatively  10000)
+;; spacemacs mode line config
+(line-number-mode 1)
+(column-number-mode 1)
+(spaceline-emacs-theme)
+(spaceline-helm-mode)
+(setq powerline-default-separator 'rounded)
+(setq powerline-height 17)
+(spaceline-compile)
+;; configure trailing whitespace tracking
+(require 'whitespace)
+(setq-default show-trailing-whitespace t)
+;; for inline image resize
+(setq org-image-actual-width nil)
+;; source code fontification
+(setq org-src-fontify-natively t)
+;; answer with y/n instead of yes/no
+(fset 'yes-or-no-p 'y-or-n-p)
+;; Disable all version control which makes startup and opening files much faster
+;; except git
+(setq vc-handled-backends '(Git))
+;; Python
+(setq python-indent-offset 4)
+;; make garbage collection less frequent, which speeds up init by about 2 seconds
+(setq gc-cons-threshold 80000000)
+</code></pre>
+
+<h2 id="autosave">Autosave</h2>
+
+<p>Autosave is a great rescue when things go wrong, however, the default
+Emacs behaviour is to save the backup files in the current working
+directory which can be really annoying. I have setup a backup folder
+in my .emacs.d in which all backups get transfered and saves me the
+clutter.</p>
+
+<pre><code class="language-apache">;; autosave to avoid clutter
+(defvar backup-dir (expand-file-name &quot;~/.emacs.d/emacs_backup/&quot;))
+(defvar autosave-dir (expand-file-name &quot;~/.emacs.d/autosave/&quot;))
+(setq backup-directory-alist (list (cons &quot;.*&quot; backup-dir)))
+(setq auto-save-list-file-prefix autosave-dir)
+(setq auto-save-file-name-transforms `((&quot;.*&quot; ,autosave-dir t)))
+(setq tramp-backup-directory-alist backup-directory-alist)
+(setq tramp-auto-save-directory autosave-dir)
+</code></pre>
+
+<h2 id="babel-dictionary">Babel Dictionary</h2>
+
+<p>For my daily work I mainly use Python and the occasional R. I try to
+have all my flowcharts generated by ditaa and plantuml when I can. I
+especially love ditaa which is a command-line tool, that converts
+ascii diagrams into bitmaps. Best illustrated below:</p>
+
+<p>The ASCII art:</p>
+
+<figure>
+    <img src="/img/2018_02_27_screenshot_ditaa.png"/> 
+</figure>
+
+
+<p>Becomes:</p>
+
+<figure>
+    <img src="/img/2018_02_27_ditaa.png" width="50%" height="50%"/> 
+</figure>
+
+
+<pre><code class="language-apache">;; setup babel languages
+(org-babel-do-load-languages
+ 'org-babel-load-languages '((python . t)
+                             (ipython . t)
+                             (R . t)
+                             (calc . t)
+                             (apache . t)
+                             (plantuml . t)
+                             (ditaa . t)))
+</code></pre>
+
+<h2 id="custom-color-setup">Custom Color Setup</h2>
+
+<p>As part of my custom-set-variables I have modified the appearance of
+the org-mode headers. I find this so much more convenient when writing
+reports. Furthermore, I have added some highlights of the source code
+headings to make it easier to identify my code sections between my text.</p>
+
+<pre><code class="language-apache">(custom-set-variables
+
+...
+...
+...
+
+ '(org-level-1 ((t (:foreground &quot;cornflower blue&quot; :box (:line-width 1 :color &quot;#0000CC&quot;) :background &quot;LightSteelBlue1&quot; :weight bold :height 1.8 :family &quot;Arial&quot;))))
+ '(org-level-2 ((t (:foreground &quot;LimeGreen&quot; :box (:line-width 1 :color &quot;#00CC00&quot;) :background &quot;DarkSeaGreen1&quot; :weight bold :height 1.6 :family &quot;Arial&quot;))))
+ '(org-level-3 ((t (:foreground &quot;pink&quot; :bold t))))
+ '(org-level-4 ((t (:foreground &quot;#F9A049&quot; :bold t)))))
+
+;; configure org-mode to highlight headings and source code
+(defface org-block-begin-line
+  '((t (:foreground &quot;#99968b&quot; :background &quot;#303030&quot; :box (:style released-button))))
+    &quot;Face used for the line delimiting the begin of source blocks.&quot;)
+(defface org-block-end-line
+  '((t (:foreground &quot;#99968b&quot; :background &quot;#303030&quot; :box (:style released-button))))
+  &quot;Face used for the line delimiting the end of source blocks.&quot;)
+</code></pre>
+
+<h2 id="references-and-pdf-compilation">References and PDF Compilation</h2>
+
+<p>For my references in org-mode I use org-ref which was written and is
+maintained by Professor John Kitchin. It is absolutely incredible how
+amazing this package is and you should definitely check it out
+<a href="https://github.com/jkitchin/org-ref">here</a>. Before I had to resort to Word and Mendeley/Endnote and I
+completely despised the workflow, so I had to find a way to change it.</p>
+
+<p>Currently my workflow consists of the following: I use Zotero as the
+GUI to add my references, since it also resides in my browser and I
+find this extremely convenient. Then everytime my library is modified
+I have setup Zotero such that it will automatically export the
+contents in a bibtex format to my Dropbox. Then org-ref will read the
+bibtex file and I can reference in my org-mode document. Finally, I
+can export org-mode to latex and compile to a pdf, which I can then
+send to people who are not into Emacs and org-mode.</p>
+
+<p>This has completely revolutionized the way I do my work and I could
+not be happier!</p>
+
+<pre><code class="language-apache">;; org-ref setup
+(require 'org-ref)
+(setq reftex-default-bibliography
+      '(&quot;~/Dropbox/PhD/Academic/Text_docs/Ref/PhD.bib&quot;))
+;; pdf compilation
+
+(setq org-latex-pdf-process
+      '(&quot;pdflatex -interaction nonstopmode -output-directory %o %f&quot;
+        &quot;bibtex %b&quot;
+        &quot;pdflatex -interaction nonstopmode -output-directory %o %f&quot;
+        &quot;pdflatex -interaction nonstopmode -output-directory %o %f&quot;)
+</code></pre>
+
+<h2 id="rss-and-scientific-publication">RSS and Scientific Publication</h2>
+
+<p>I find it quite challenging to keep up with scientific
+publications. It might mainly be the fact that the interface which a
+webpage provides is not the most user friendly when it comes to this
+(at least that&rsquo;s me). Hence, I have started tracking all the
+publications which interest me with RSS. With the package elfeed Emacs
+turns out to be very convenient for reading RSS feeds.</p>
+
+<pre><code class="language-apache">;; configure elfeed
+(require 'elfeed)
+(global-set-key (kbd &quot;C-x w&quot;) 'elfeed)
+;; track feeds
+(setq elfeed-feeds
+      '(&quot;http://planetpython.org/rss20.xml&quot;
+        &quot;http://planet.scipy.org/rss20.xml&quot;
+        &quot;http://planet.emacsen.org/atom.xml&quot;
+        &quot;http://emacs.stackexchange.com/feeds&quot;
+        &quot;http://feeds.nature.com/nmat/rss/current&quot;
+        &quot;https://www.journals.elsevier.com/engineering-fracture-mechanics/rss/&quot; ;; engineering fracture mechanics journal info
+        &quot;https://www.journals.elsevier.com/international-journal-of-heat-and-mass-transfer/rss/&quot; ;; heat and mass transfer journal info
+        &quot;http://rss.sciencedirect.com/publication/science/00137944&quot; ;; journal of engineering fracture mechanics articles
+        &quot;http://rss.sciencedirect.com/publication/science/00179310&quot; ;; journal of heat and mass transfer articles
+        &quot;http://rss.sciencedirect.com/publication/science/18777503&quot; ;; journal of computational science articles
+        &quot;http://rss.sciencedirect.com/publication/science/07437315&quot; ;; journal of parallel and distributed computing
+        &quot;http://rss.sciencedirect.com/publication/science/00104655&quot; ;; journal of computer physics communications
+        &quot;http://rss.sciencedirect.com/publication/science/09205489&quot; ;; journal of computer standards and interfaces
+        &quot;http://materialstechnology.asmedigitalcollection.asme.org/rss/site_71/121.xml&quot; ;; journal of engineering materials and technology
+        &quot;http://computingengineering.asmedigitalcollection.asme.org/rss/site_66/116.xml&quot; ;; journal of computing and information science in eng
+        &quot;http://thermalscienceapplication.asmedigitalcollection.asme.org/rss/site_83/133.xml&quot; ;; journal of thermal science and engineering application
+        &quot;http://heattransfer.asmedigitalcollection.asme.org/rss/site_74/124.xml&quot; ;; journal of heat transfer
+        &quot;http://rss.sciencedirect.com/publication/science/09215093&quot; ;; materials science and engineering: A (structural materials)
+        ))
+(define-key elfeed-search-mode-map (kbd &quot;r&quot;) 'elfeed-search-untag-all-unread)
+</code></pre>
+
+<h2 id="custom-id">Custom ID</h2>
+
+<p>When writing with org-mode and org-ref in order to link to sections I
+use drawers and a custom generated ID. This is achieved with the
+function below, written by Christopher Wellons and editted by Xah Lee.</p>
+
+<pre><code class="language-apache">;; custom UUID function
+(defun xah-insert-random-uuid ()
+&quot;Insert a UUID. This uses a simple hashing of variable data.
+Example of a UUID: 1df63142-a513-c850-31a3-535fc3520c3d&quot;
+  (interactive)
+  (let ((myStr (md5 (format &quot;%s%s%s%s%s%s%s%s%s%s&quot;
+                            (user-uid)
+                            (emacs-pid)
+                            (system-name)
+                            (user-full-name)
+                            (current-time)
+                            (emacs-uptime)
+                            (garbage-collect)
+                            (buffer-string)
+                            (random)
+                            (recent-keys)))))
+
+    (insert (format &quot;%s-%s-4%s-%s%s-%s&quot;
+                    (substring myStr 0 8)
+                    (substring myStr 8 12)
+                    (substring myStr 13 16)
+                    (format &quot;%x&quot; (+ 8 (random 4)))
+                    (substring myStr 17 20)
+                    (substring myStr 20 32)))))
+</code></pre>
+
+<p>The function is then executed at the ID drawer with M-x
+xah-insert-random-uuid.</p>
+
+<h2 id="blogging">Blogging</h2>
+
+<p>For this blog I wanted to use to very lightweight system in which I
+can convert my existing work (already in org-mode) to html. I am using
+a modified version of the code written by Dennis Ogbe which uses the
+built-in functionality of org-mode and elisp. You can read more about
+it on his <a href="https://ogbe.net/blog/blogging%5Fwith%5Forg.html">blog</a>.</p>
+
+<h2 id="git">Git</h2>
+
+<p>For version control in Emacs I use Magit. It is quite simple to use
+and incredible useful. You can find more about it <a href="https://magit.vc/">here</a>.</p>
+
+<h2 id="custom-templates">Custom Templates</h2>
+
+<p>It can be quite annoying to have to repeatedly type some of the export
+or in-buffer settings in org-mode. It is much easier to define a list
+of templates which are commonly used and then just call them from the
+buffer. For example, &lt;rep [TAB] will insert my export settings for a
+new report.</p>
+
+<p>The ones which I commonly use in my work are below.</p>
+
+<pre><code class="language-apache">;; for report writing
+(add-to-list 'org-structure-template-alist
+             '(&quot;rep&quot; &quot;#+TITLE: ?
+#+AUTHOR: Nikola Stoyanov
+#+EMAIL: nikola.stoyanov@postgrad.manchester.ac.uk
+#+DATE:
+#+STARTUP: showall
+#+STARTUP: inlineimages\n&quot;))
+;; figure insertion
+(add-to-list 'org-structure-template-alist
+             '(&quot;fig&quot; &quot;#+LATEX_ATTR: :placement [H]\n#+CAPTION:\n#+NAME:\n&quot;))
+;; ipython
+(add-to-list 'org-structure-template-alist
+             '(&quot;ip&quot; &quot;#+BEGIN_SRC ipython :session :exports both :async t :results raw drawer\n\n#+END_SRC&quot;))
+;; python
+(add-to-list 'org-structure-template-alist
+             '(&quot;p&quot; &quot;#+BEGIN_SRC python :results raw drawer\n\n#+END_SRC&quot;))
+;; async ipython
+(add-to-list 'org-structure-template-alist
+             '(&quot;ipf&quot; &quot;#+BEGIN_SRC ipython :session :ipyfile /tmp/image.png :exports both :async t :results raw drawer\n\n#+END_SRC&quot;))
+;; apache
+(add-to-list 'org-structure-template-alist
+             '(&quot;el&quot; &quot;#+BEGIN_SRC apache\n\n#+END_SRC&quot;))
+;; heading drawer
+(add-to-list 'org-structure-template-alist
+             '(&quot;head&quot; &quot;:PROPERTIES:\n:ID:\n:END:&quot;))
+;; org table
+(add-to-list 'org-structure-template-alist
+             '(&quot;tn&quot; &quot;#+TBLNAME: &quot;))
+;; table formats
+(add-to-list 'org-structure-template-alist
+             '(&quot;t&quot; &quot;| |&quot;))
+(add-to-list 'org-structure-template-alist
+             '(&quot;tt&quot; &quot;| | |&quot;))
+(add-to-list 'org-structure-template-alist
+             '(&quot;ttt&quot; &quot;| | | |&quot;))
+(add-to-list 'org-structure-template-alist
+             '(&quot;tttt&quot; &quot;| | | | |&quot;))
+(add-to-list 'org-structure-template-alist
+             '(&quot;ttttt&quot; &quot;| | | | | |&quot;))
+(add-to-list 'org-structure-template-alist
+             '(&quot;tttttt&quot; &quot;| | | | | | |&quot;))
+</code></pre>
+
+<p>I hope this has been helpful. Thanks for reading!</p>
+
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/posts/first_post/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">First Blog Post</span>
+    </a>
+    
+    
+    <a href="/posts/crackvis/" class="navigation-next">
+      <span class="navigation-tittle">Python and VTK scientific visualisation</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-129217636-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+
+    
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        
+            
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/ipython.min.js"></script>
+            
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+            
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/c.min.js"></script>
+            
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/c&#43;&#43;.min.js"></script>
+            
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/shell.min.js"></script>
+            
+        
+    
+    <script type="text/javascript">
+        
+        hljs.configure({languages: ["ipython, python, c, c++, shell"]});
+        
+        hljs.initHighlightingOnLoad();
+    </script>
+    
+
+
+
+
+    
+
+
+
+    </body>
+</html>

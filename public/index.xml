@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nikola Stoyanov</title>
+    <link>https://niksto.net/</link>
+    <description>Recent content on Nikola Stoyanov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 14 Nov 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://niksto.net/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Research</title>
+      <link>https://niksto.net/portfolio/research/</link>
+      <pubDate>Wed, 14 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://niksto.net/portfolio/research/</guid>
+      <description> Cohesive models for crack opening using the PPR model. Structural behaviour of cracks in fire. Protection materials for low and high temperatures. Canny edge detection for SEM micrographs. Post-processing for the contour method package pyCM. Inverse heat transfer modeling.  </description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://niksto.net/about/</link>
+      <pubDate>Tue, 13 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://niksto.net/about/</guid>
+      <description>About Hello! My name is Nikola Stoyanov and I am a PhD student at the University of Manchester in the Mechanical, Aerospace and Civil Engineering department. I also did my MEng degree in Civil Engineering - again in Manchester.
+  My research interests are the structural and material performance of low carbon steel when exposed to cryogenic temperatures (more specifically Liquefied Natural Gas) and followed by hydrocarbon fire.</description>
+    </item>
+    
+    <item>
+      <title>Exploring Fractals</title>
+      <link>https://niksto.net/posts/exploring_fractals/</link>
+      <pubDate>Thu, 02 Aug 2018 00:00:00 +0100</pubDate>
+      
+      <guid>https://niksto.net/posts/exploring_fractals/</guid>
+      <description>Introduction I recently rewatched a video from Arthur C. Clarke which is where I first saw what fractals are. I saw this video while I was in high school and having rewatched it now I wondered if I can generate the Mandelbrot set and explore some parts of it myself. I did a quick search online and I discovered that Jean Francois Puget had already done that and achieved great results.</description>
+    </item>
+    
+    <item>
+      <title>Python and VTK scientific visualisation</title>
+      <link>https://niksto.net/posts/crackvis/</link>
+      <pubDate>Wed, 06 Jun 2018 00:00:00 +0100</pubDate>
+      
+      <guid>https://niksto.net/posts/crackvis/</guid>
+      <description>Background CrackVis is a visualisation tool which uses VTK to display a point cloud from ABAQUS 2D simulations. The input is a csv file which holds data in the following format:
+   X Y Z1 Z2 &amp;hellip;     &amp;hellip; &amp;hellip; &amp;hellip; &amp;hellip; &amp;hellip;    Where \(X\) and \(Y\) are the coordinates of the nodes and \(Z_n\) is the data to be investigated.</description>
+    </item>
+    
+    <item>
+      <title>Emacs Configuration File</title>
+      <link>https://niksto.net/posts/emacs_config/</link>
+      <pubDate>Tue, 27 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://niksto.net/posts/emacs_config/</guid>
+      <description>Emacs Configuration Here is the compulsory screenshot of my Emacs setup and this page being edited.
+  Below I have presented the main parts of my configuration which might be of interest.
+Initialize Load melpa and custom packages. Here I also load ox-rss which is later used to generate the rss feed for this blog.
+(package-initialize) ;; load emacs 24&#39;s package system. Add MELPA repository. (when (&amp;gt;= emacs-major-version 24) (require &#39;package) (add-to-list &#39;package-archives &#39;(&amp;quot;melpa&amp;quot; .</description>
+    </item>
+    
+    <item>
+      <title>First Blog Post</title>
+      <link>https://niksto.net/posts/first_post/</link>
+      <pubDate>Wed, 21 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://niksto.net/posts/first_post/</guid>
+      <description>Hi I have just finished building this blog from Emacs and Org Mode. My intention is to blog about my work during my PhD and since I do almost all of my report writing work in Org Mode I needed a system with which I can upload content quickly and easily.
+The website is built using the script detailed in the blog of Dennis Ogbe using nothing else but the built-in functionality of Org Mode and some elisp.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,107 @@
+# -*- org-export-babel-evaluate: nil -*-
+#+HUGO_BASE_DIR: ../
+#+HUGO_SECTION: posts
+
+#+TITLE: Sketching for Outeach
+
+#+AUTHOR: Nikola Stoyanov
+#+EMAIL: nikst@posteo.net
+#+DATE: <2018-11-01 Thu>
+
+#+HUGO_TAGS: Javascript
+#+HUGO_CATEGORIES: Visualisation
+#+HUGO_DRAFT: true
+
+#+STARTUP: showall
+#+STARTUP: showstars
+#+STARTUP: inlineimages
+
+* Sketching
+
+#+BEGIN_HTML
+<script src="https://rawgit.com/pshihn/rough/master/dist/rough.min.js"></script>
+#+END_HTML
+
+Creating sketches/drawings for an outreach event targeted at
+non-technical audience is time consuming and it would be best to reuse
+what we already have. In my case all of my figures are generated using
+PGF/TikZ and are great quality, however, I would not consider them
+suitable for some audiences. In this post I am showing the use of
+Rough.js to convert my figures to sketches targeted for school
+outreach events.
+
+* Rough.js sketching
+Rough.js is a JavaScript library which allows the drawing of lines and
+shapes in a sketchy style. It is hosted in GitHub and can be found
+[[https://github.com/pshihn/rough][here]].
+
+To demonstrate what it can do lets execute the script below. This is
+one of the examples in the project [[https://roughjs.com/examples/paths-svg.html][webpage]].
+
+#+BEGIN_SRC javascript :export code
+<svg height="300" width="400" id="svg"></svg>
+
+<script>
+    const svg = document.getElementById('svg');
+    const rc = rough.svg(svg);
+
+    svg.appendChild(rc.path('M80 80 A 45 45, 0, 0, 0, 125 125 L 125 80 Z', { fill: 'green' }));
+    svg.appendChild(rc.path('M230 80 A 45 45, 0, 1, 0, 275 125 L 275 80 Z', { fill: 'purple', hachureAngle: 60, hachureGap: 5 }));
+    svg.appendChild(rc.path('M80 230 A 45 45, 0, 0, 1, 125 275 L 125 230 Z', { fill: 'red' }));
+    svg.appendChild(rc.path('M230 230 A 45 45, 0, 1, 1, 275 275 L 275 230 Z', { fill: 'blue' }));
+</script>
+#+END_SRC
+
+With the rendered svg sketches below.
+
+#+BEGIN_HTML
+<svg height="300" width="400" id="svg"></svg>
+
+  <script>
+    const svg = document.getElementById('svg');
+    const rc = rough.svg(svg);
+
+    svg.appendChild(rc.path('M80 80 A 45 45, 0, 0, 0, 125 125 L 125 80 Z', { fill: 'green' }));
+    svg.appendChild(rc.path('M230 80 A 45 45, 0, 1, 0, 275 125 L 275 80 Z', { fill: 'purple', hachureAngle: 60, hachureGap: 5 }));
+    svg.appendChild(rc.path('M80 230 A 45 45, 0, 0, 1, 125 275 L 125 230 Z', { fill: 'red' }));
+    svg.appendChild(rc.path('M230 230 A 45 45, 0, 1, 1, 275 275 L 275 230 Z', { fill: 'blue' }));
+  </script>
+#+END_HTML
+
+Great it looks sketchy and is perfect for showing figures in a
+non-serious manner. We can now easily convert existing figures since
+Rough.js can take svg paths and display them. However, to avoid manual
+paste of the path we need a parser from the .svg file to the
+JavaScript code.
+
+* Coarse transformation
+Luckily, there is a library [[https://github.com/ismay/coarse][Coarse]] built on top of Rough.js which
+allows server side execution. This is useful if more than reasonable
+computational power is required to generate the figure on the client
+side. We can use this for our purposes since the input to Coarse is
+just the .svg file. Since I am using the command line I also needed to
+install the cli interface which you can download [[https://github.com/ismay/coarse-cli][here]]. Now having the
+two libraries and the cli interface in place we can transform the
+figures.
+
+* Sketchy figures
+The figure which I am going to convert is shown below. It describes
+the crack initiation process in a body and the eventual arrest
+behaviour.
+#+ATTR_HTML: :width 50% :height 50%
+[[file:/img/cracked_body.svg]]
+
+Now the majority of this figure can be omitted. The figure is meant
+for a technical document and in an outreach most of it can be dropped. So
+lets convert the file.
+
+#+BEGIN_SRC shell
+coarse cracked_body.svg sketchy_cracked_body.svg
+#+END_SRC
+
+#+ATTR_HTML: :width 50% :height 50%
+[[file:/img/sketchy_cracked_body.svg]]
+
+Great! And since the algorithm works with random seeds we can
+experiment a few times to get an output we are happy with. Now any
+technical figure can be converted for an non-technical outreach event.

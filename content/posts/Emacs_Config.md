@@ -1,0 +1,390 @@
++++
+title = "Emacs Configuration File"
+author = ["Nikola Stoyanov"]
+date = 2018-02-27T00:00:00+00:00
+tags = ["Emacs", "Orgmode", "Research", "Reproducible"]
+categories = ["Emacs"]
+draft = false
++++
+
+## Emacs Configuration {#emacs-configuration}
+
+Here is the compulsory screenshot of my Emacs setup and this page
+being edited.
+
+{{< figure src="/img/2018_02_27_screenshot.png" width="100%" height="100%" >}}
+
+Below I have presented the main parts of my configuration which might
+be of interest.
+
+
+## Initialize {#initialize}
+
+Load melpa and custom packages. Here I also load ox-rss which is later
+used to generate the rss feed for this blog.
+
+```apache
+(package-initialize)
+
+;; load emacs 24's package system. Add MELPA repository.
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (add-to-list
+   'package-archives
+   '("melpa" . "http://melpa.milkbox.net/packages/")
+   t))
+
+;; add custom packages which are not part of melpa
+;; ox-rss
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+
+```
+
+
+## Appearance {#appearance}
+
+I use doom as my Emacs theme, nlinum for the line numbering, neotree
+for the file explorer and spaceline for my Emacs mode line.
+
+I also track for whitespaces which marks them in my buffer so I can
+delete them as they deserve so. Finally I setup some speed ups for
+Emacs by disabling the garbage collection and all version control
+(besides Git of course...), which is directly taken from [Scimax](https://github.com/jkitchin/scimax).
+
+```apache
+;; appearance
+(require 'nlinum)           ; line number display
+(require 'neotree)          ; folder tree
+(require 'doom-themes)      ; custom theme
+(require 'spaceline-config) ; spacemacs package for the mode line
+;; global settings (defaults)
+(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+      doom-themes-enable-italic t) ; if nil, italics is universally disabled
+;; load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
+;; may have their own settings.
+(load-theme 'doom-one t)
+;; enable flashing mode-line on errors
+(doom-themes-visual-bell-config)
+;; enable custom neotree theme and configure
+(doom-themes-neotree-config)  ; all-the-icons fonts must be installed!
+(setq doom-neotree-enable-file-icons t)
+(setq doom-neotree-enable-folder-icons t)
+(setq doom-neotree-enable-chevron-icons t)
+(setq doom-neotree-file-icons t)
+(setq doom-neotree-enable-type-colors t)
+;; set line numbering
+(defconst modi/linum-mode-hooks '(verilog-mode-hook
+                                  apache-mode-hook
+                                  cperl-mode-hook
+                                  c-mode-hook
+                                  python-mode-hook
+                                  matlab-mode-hook
+                                  sh-mode-hook
+                                  web-mode-hook
+                                  html-mode-hook
+                                  css-mode-hook
+                                  makefile-gmake-mode-hook
+                                  tcl-mode-hook
+                                  org-hook)
+  "List of hooks of major modes in which a linum mode should be enabled.")
+(when global-linum-mode
+  (global-nlinum-mode -1))
+(dolist (hook modi/linum-mode-hooks)
+  (add-hook hook #'nlinum-mode))
+(setq nlinum-highlight-current-line t)
+;; Corrects (and improves) org-mode's native fontification.
+(doom-themes-org-config)
+;; emacs general behavior setup
+(when (display-graphic-p)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1))
+(setq inhibit-startup-screen t)
+(tool-bar-mode 0)
+(setq initial-scratch-message nil)
+(setq scroll-step            1
+      scroll-conservatively  10000)
+;; spacemacs mode line config
+(line-number-mode 1)
+(column-number-mode 1)
+(spaceline-emacs-theme)
+(spaceline-helm-mode)
+(setq powerline-default-separator 'rounded)
+(setq powerline-height 17)
+(spaceline-compile)
+;; configure trailing whitespace tracking
+(require 'whitespace)
+(setq-default show-trailing-whitespace t)
+;; for inline image resize
+(setq org-image-actual-width nil)
+;; source code fontification
+(setq org-src-fontify-natively t)
+;; answer with y/n instead of yes/no
+(fset 'yes-or-no-p 'y-or-n-p)
+;; Disable all version control which makes startup and opening files much faster
+;; except git
+(setq vc-handled-backends '(Git))
+;; Python
+(setq python-indent-offset 4)
+;; make garbage collection less frequent, which speeds up init by about 2 seconds
+(setq gc-cons-threshold 80000000)
+```
+
+
+## Autosave {#autosave}
+
+Autosave is a great rescue when things go wrong, however, the default
+Emacs behaviour is to save the backup files in the current working
+directory which can be really annoying. I have setup a backup folder
+in my .emacs.d in which all backups get transfered and saves me the
+clutter.
+
+```apache
+;; autosave to avoid clutter
+(defvar backup-dir (expand-file-name "~/.emacs.d/emacs_backup/"))
+(defvar autosave-dir (expand-file-name "~/.emacs.d/autosave/"))
+(setq backup-directory-alist (list (cons ".*" backup-dir)))
+(setq auto-save-list-file-prefix autosave-dir)
+(setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
+(setq tramp-backup-directory-alist backup-directory-alist)
+(setq tramp-auto-save-directory autosave-dir)
+```
+
+
+## Babel Dictionary {#babel-dictionary}
+
+For my daily work I mainly use Python and the occasional R. I try to
+have all my flowcharts generated by ditaa and plantuml when I can. I
+especially love ditaa which is a command-line tool, that converts
+ascii diagrams into bitmaps. Best illustrated below:
+
+The ASCII art:
+
+{{< figure src="/img/2018_02_27_screenshot_ditaa.png" >}}
+
+Becomes:
+
+{{< figure src="/img/2018_02_27_ditaa.png" width="50%" height="50%" >}}
+
+```apache
+;; setup babel languages
+(org-babel-do-load-languages
+ 'org-babel-load-languages '((python . t)
+                             (ipython . t)
+                             (R . t)
+                             (calc . t)
+                             (apache . t)
+                             (plantuml . t)
+                             (ditaa . t)))
+```
+
+
+## Custom Color Setup {#custom-color-setup}
+
+As part of my custom-set-variables I have modified the appearance of
+the org-mode headers. I find this so much more convenient when writing
+reports. Furthermore, I have added some highlights of the source code
+headings to make it easier to identify my code sections between my text.
+
+```apache
+(custom-set-variables
+
+...
+...
+...
+
+ '(org-level-1 ((t (:foreground "cornflower blue" :box (:line-width 1 :color "#0000CC") :background "LightSteelBlue1" :weight bold :height 1.8 :family "Arial"))))
+ '(org-level-2 ((t (:foreground "LimeGreen" :box (:line-width 1 :color "#00CC00") :background "DarkSeaGreen1" :weight bold :height 1.6 :family "Arial"))))
+ '(org-level-3 ((t (:foreground "pink" :bold t))))
+ '(org-level-4 ((t (:foreground "#F9A049" :bold t)))))
+
+;; configure org-mode to highlight headings and source code
+(defface org-block-begin-line
+  '((t (:foreground "#99968b" :background "#303030" :box (:style released-button))))
+    "Face used for the line delimiting the begin of source blocks.")
+(defface org-block-end-line
+  '((t (:foreground "#99968b" :background "#303030" :box (:style released-button))))
+  "Face used for the line delimiting the end of source blocks.")
+```
+
+
+## References and PDF Compilation {#references-and-pdf-compilation}
+
+For my references in org-mode I use org-ref which was written and is
+maintained by Professor John Kitchin. It is absolutely incredible how
+amazing this package is and you should definitely check it out
+[here](https://github.com/jkitchin/org-ref). Before I had to resort to Word and Mendeley/Endnote and I
+completely despised the workflow, so I had to find a way to change it.
+
+Currently my workflow consists of the following: I use Zotero as the
+GUI to add my references, since it also resides in my browser and I
+find this extremely convenient. Then everytime my library is modified
+I have setup Zotero such that it will automatically export the
+contents in a bibtex format to my Dropbox. Then org-ref will read the
+bibtex file and I can reference in my org-mode document. Finally, I
+can export org-mode to latex and compile to a pdf, which I can then
+send to people who are not into Emacs and org-mode.
+
+This has completely revolutionized the way I do my work and I could
+not be happier!
+
+```apache
+;; org-ref setup
+(require 'org-ref)
+(setq reftex-default-bibliography
+      '("~/Dropbox/PhD/Academic/Text_docs/Ref/PhD.bib"))
+;; pdf compilation
+
+(setq org-latex-pdf-process
+      '("pdflatex -interaction nonstopmode -output-directory %o %f"
+        "bibtex %b"
+        "pdflatex -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -interaction nonstopmode -output-directory %o %f")
+```
+
+
+## RSS and Scientific Publication {#rss-and-scientific-publication}
+
+I find it quite challenging to keep up with scientific
+publications. It might mainly be the fact that the interface which a
+webpage provides is not the most user friendly when it comes to this
+(at least that's me). Hence, I have started tracking all the
+publications which interest me with RSS. With the package elfeed Emacs
+turns out to be very convenient for reading RSS feeds.
+
+```apache
+;; configure elfeed
+(require 'elfeed)
+(global-set-key (kbd "C-x w") 'elfeed)
+;; track feeds
+(setq elfeed-feeds
+      '("http://planetpython.org/rss20.xml"
+        "http://planet.scipy.org/rss20.xml"
+        "http://planet.emacsen.org/atom.xml"
+        "http://emacs.stackexchange.com/feeds"
+        "http://feeds.nature.com/nmat/rss/current"
+        "https://www.journals.elsevier.com/engineering-fracture-mechanics/rss/" ;; engineering fracture mechanics journal info
+        "https://www.journals.elsevier.com/international-journal-of-heat-and-mass-transfer/rss/" ;; heat and mass transfer journal info
+        "http://rss.sciencedirect.com/publication/science/00137944" ;; journal of engineering fracture mechanics articles
+        "http://rss.sciencedirect.com/publication/science/00179310" ;; journal of heat and mass transfer articles
+        "http://rss.sciencedirect.com/publication/science/18777503" ;; journal of computational science articles
+        "http://rss.sciencedirect.com/publication/science/07437315" ;; journal of parallel and distributed computing
+        "http://rss.sciencedirect.com/publication/science/00104655" ;; journal of computer physics communications
+        "http://rss.sciencedirect.com/publication/science/09205489" ;; journal of computer standards and interfaces
+        "http://materialstechnology.asmedigitalcollection.asme.org/rss/site_71/121.xml" ;; journal of engineering materials and technology
+        "http://computingengineering.asmedigitalcollection.asme.org/rss/site_66/116.xml" ;; journal of computing and information science in eng
+        "http://thermalscienceapplication.asmedigitalcollection.asme.org/rss/site_83/133.xml" ;; journal of thermal science and engineering application
+        "http://heattransfer.asmedigitalcollection.asme.org/rss/site_74/124.xml" ;; journal of heat transfer
+        "http://rss.sciencedirect.com/publication/science/09215093" ;; materials science and engineering: A (structural materials)
+        ))
+(define-key elfeed-search-mode-map (kbd "r") 'elfeed-search-untag-all-unread)
+```
+
+
+## Custom ID {#custom-id}
+
+When writing with org-mode and org-ref in order to link to sections I
+use drawers and a custom generated ID. This is achieved with the
+function below, written by Christopher Wellons and editted by Xah Lee.
+
+```apache
+;; custom UUID function
+(defun xah-insert-random-uuid ()
+"Insert a UUID. This uses a simple hashing of variable data.
+Example of a UUID: 1df63142-a513-c850-31a3-535fc3520c3d"
+  (interactive)
+  (let ((myStr (md5 (format "%s%s%s%s%s%s%s%s%s%s"
+                            (user-uid)
+                            (emacs-pid)
+                            (system-name)
+                            (user-full-name)
+                            (current-time)
+                            (emacs-uptime)
+                            (garbage-collect)
+                            (buffer-string)
+                            (random)
+                            (recent-keys)))))
+
+    (insert (format "%s-%s-4%s-%s%s-%s"
+                    (substring myStr 0 8)
+                    (substring myStr 8 12)
+                    (substring myStr 13 16)
+                    (format "%x" (+ 8 (random 4)))
+                    (substring myStr 17 20)
+                    (substring myStr 20 32)))))
+```
+
+The function is then executed at the ID drawer with M-x
+xah-insert-random-uuid.
+
+
+## Blogging {#blogging}
+
+For this blog I wanted to use to very lightweight system in which I
+can convert my existing work (already in org-mode) to html. I am using
+a modified version of the code written by Dennis Ogbe which uses the
+built-in functionality of org-mode and elisp. You can read more about
+it on his [blog](https://ogbe.net/blog/blogging%5Fwith%5Forg.html).
+
+
+## Git {#git}
+
+For version control in Emacs I use Magit. It is quite simple to use
+and incredible useful. You can find more about it [here](https://magit.vc/).
+
+
+## Custom Templates {#custom-templates}
+
+It can be quite annoying to have to repeatedly type some of the export
+or in-buffer settings in org-mode. It is much easier to define a list
+of templates which are commonly used and then just call them from the
+buffer. For example, <rep [TAB] will insert my export settings for a
+new report.
+
+The ones which I commonly use in my work are below.
+
+```apache
+;; for report writing
+(add-to-list 'org-structure-template-alist
+             '("rep" "#+TITLE: ?
+#+AUTHOR: Nikola Stoyanov
+#+EMAIL: nikola.stoyanov@postgrad.manchester.ac.uk
+#+DATE:
+#+STARTUP: showall
+#+STARTUP: inlineimages\n"))
+;; figure insertion
+(add-to-list 'org-structure-template-alist
+             '("fig" "#+LATEX_ATTR: :placement [H]\n#+CAPTION:\n#+NAME:\n"))
+;; ipython
+(add-to-list 'org-structure-template-alist
+             '("ip" "#+BEGIN_SRC ipython :session :exports both :async t :results raw drawer\n\n#+END_SRC"))
+;; python
+(add-to-list 'org-structure-template-alist
+             '("p" "#+BEGIN_SRC python :results raw drawer\n\n#+END_SRC"))
+;; async ipython
+(add-to-list 'org-structure-template-alist
+             '("ipf" "#+BEGIN_SRC ipython :session :ipyfile /tmp/image.png :exports both :async t :results raw drawer\n\n#+END_SRC"))
+;; apache
+(add-to-list 'org-structure-template-alist
+             '("el" "#+BEGIN_SRC apache\n\n#+END_SRC"))
+;; heading drawer
+(add-to-list 'org-structure-template-alist
+             '("head" ":PROPERTIES:\n:ID:\n:END:"))
+;; org table
+(add-to-list 'org-structure-template-alist
+             '("tn" "#+TBLNAME: "))
+;; table formats
+(add-to-list 'org-structure-template-alist
+             '("t" "| |"))
+(add-to-list 'org-structure-template-alist
+             '("tt" "| | |"))
+(add-to-list 'org-structure-template-alist
+             '("ttt" "| | | |"))
+(add-to-list 'org-structure-template-alist
+             '("tttt" "| | | | |"))
+(add-to-list 'org-structure-template-alist
+             '("ttttt" "| | | | | |"))
+(add-to-list 'org-structure-template-alist
+             '("tttttt" "| | | | | | |"))
+```
+
+I hope this has been helpful. Thanks for reading!

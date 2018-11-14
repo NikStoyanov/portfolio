@@ -1,0 +1,20 @@
+# -*- org-export-babel-evaluate: nil -*-
+#+HUGO_BASE_DIR: ../
+#+HUGO_SECTION: portfolio
+
+#+TITLE: Research
+
+#+AUTHOR: Nikola Stoyanov
+#+EMAIL: nikst@posteo.net
+#+DATE: <2018-11-14 Wed>
+
+#+STARTUP: showall
+#+STARTUP: showstars
+#+STARTUP: inlineimages
+
+- Cohesive models for crack opening using the PPR model.
+- Structural behaviour of cracks in fire.
+- Protection materials for low and high temperatures.
+- Canny edge detection for SEM micrographs.
+- Post-processing for the contour method package pyCM.
+- Inverse heat transfer modeling.

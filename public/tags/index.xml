@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Nikola Stoyanov</title>
+    <link>https://niksto.net/tags/</link>
+    <description>Recent content in Tags on Nikola Stoyanov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 02 Aug 2018 00:00:00 +0100</lastBuildDate>
+    
+	<atom:link href="https://niksto.net/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Computing</title>
+      <link>https://niksto.net/tags/computing/</link>
+      <pubDate>Thu, 02 Aug 2018 00:00:00 +0100</pubDate>
+      
+      <guid>https://niksto.net/tags/computing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Crack</title>
+      <link>https://niksto.net/tags/crack/</link>
+      <pubDate>Wed, 06 Jun 2018 00:00:00 +0100</pubDate>
+      
+      <guid>https://niksto.net/tags/crack/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Emacs</title>
+      <link>https://niksto.net/tags/emacs/</link>
+      <pubDate>Tue, 27 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://niksto.net/tags/emacs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Femn</title>
+      <link>https://niksto.net/tags/femn/</link>
+      <pubDate>Wed, 06 Jun 2018 00:00:00 +0100</pubDate>
+      
+      <guid>https://niksto.net/tags/femn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Meta</title>
+      <link>https://niksto.net/tags/meta/</link>
+      <pubDate>Tue, 13 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://niksto.net/tags/meta/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Numerical</title>
+      <link>https://niksto.net/tags/numerical/</link>
+      <pubDate>Thu, 02 Aug 2018 00:00:00 +0100</pubDate>
+      
+      <guid>https://niksto.net/tags/numerical/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Orgmode</title>
+      <link>https://niksto.net/tags/orgmode/</link>
+      <pubDate>Tue, 27 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://niksto.net/tags/orgmode/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>https://niksto.net/tags/python/</link>
+      <pubDate>Thu, 02 Aug 2018 00:00:00 +0100</pubDate>
+      
+      <guid>https://niksto.net/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Reproducible</title>
+      <link>https://niksto.net/tags/reproducible/</link>
+      <pubDate>Tue, 27 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://niksto.net/tags/reproducible/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Research</title>
+      <link>https://niksto.net/tags/research/</link>
+      <pubDate>Tue, 27 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://niksto.net/tags/research/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Scipy</title>
+      <link>https://niksto.net/tags/scipy/</link>
+      <pubDate>Thu, 02 Aug 2018 00:00:00 +0100</pubDate>
+      
+      <guid>https://niksto.net/tags/scipy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vtk</title>
+      <link>https://niksto.net/tags/vtk/</link>
+      <pubDate>Wed, 06 Jun 2018 00:00:00 +0100</pubDate>
+      
+      <guid>https://niksto.net/tags/vtk/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

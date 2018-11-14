@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Emacs on Nikola Stoyanov</title>
+    <link>https://niksto.net/categories/emacs/</link>
+    <description>Recent content in Emacs on Nikola Stoyanov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 27 Feb 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://niksto.net/categories/emacs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Emacs Configuration File</title>
+      <link>https://niksto.net/posts/emacs_config/</link>
+      <pubDate>Tue, 27 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://niksto.net/posts/emacs_config/</guid>
+      <description>Emacs Configuration Here is the compulsory screenshot of my Emacs setup and this page being edited.
+  Below I have presented the main parts of my configuration which might be of interest.
+Initialize Load melpa and custom packages. Here I also load ox-rss which is later used to generate the rss feed for this blog.
+(package-initialize) ;; load emacs 24&#39;s package system. Add MELPA repository. (when (&amp;gt;= emacs-major-version 24) (require &#39;package) (add-to-list &#39;package-archives &#39;(&amp;quot;melpa&amp;quot; .</description>
+    </item>
+    
+  </channel>
+</rss>
