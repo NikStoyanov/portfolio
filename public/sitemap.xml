@@ -55,13 +55,13 @@
   </url>
   
   <url>
-    <loc>https://niksto.net/tags/emacs/</loc>
+    <loc>https://niksto.net/categories/emacs/</loc>
     <lastmod>2018-02-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://niksto.net/categories/emacs/</loc>
+    <loc>https://niksto.net/tags/emacs/</loc>
     <lastmod>2018-02-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -79,13 +79,13 @@
   </url>
   
   <url>
-    <loc>https://niksto.net/tags/meta/</loc>
+    <loc>https://niksto.net/categories/meta/</loc>
     <lastmod>2018-11-13T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://niksto.net/categories/meta/</loc>
+    <loc>https://niksto.net/tags/meta/</loc>
     <lastmod>2018-11-13T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>

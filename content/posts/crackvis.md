@@ -213,7 +213,7 @@ Lets also see how the full code works. Below is the code from my
 <div class="HTML">
   <div></div>
 
-<script src="<https://gist-it.appspot.com/https://github.com/NikStoyanov/CrackVis/blob/master/crackvis.py>"></script>
+<script src="https://gist-it.appspot.com/https://github.com/NikStoyanov/CrackVis/blob/master/crackvis.py"></script>
 
 </div>
 
