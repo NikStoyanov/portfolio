@@ -13,6 +13,11 @@
   </url>
   
   <url>
+    <loc>https://niksto.net/posts/cool_sketching/</loc>
+    <lastmod>2018-11-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://niksto.net/posts/exploring_fractals/</loc>
     <lastmod>2018-08-02T00:00:00+01:00</lastmod>
   </url>
@@ -68,6 +73,12 @@
   </url>
   
   <url>
+    <loc>https://niksto.net/tags/javascript/</loc>
+    <lastmod>2018-11-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://niksto.net/tags/meta/</loc>
     <lastmod>2018-11-13T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -99,7 +110,7 @@
   
   <url>
     <loc>https://niksto.net/posts/</loc>
-    <lastmod>2018-08-02T00:00:00+01:00</lastmod>
+    <lastmod>2018-11-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -140,7 +151,7 @@
   
   <url>
     <loc>https://niksto.net/categories/visualisation/</loc>
-    <lastmod>2018-08-02T00:00:00+01:00</lastmod>
+    <lastmod>2018-11-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

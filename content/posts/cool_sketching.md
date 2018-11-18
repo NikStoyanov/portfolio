@@ -4,7 +4,7 @@ author = ["Nikola Stoyanov"]
 date = 2018-11-01T00:00:00+00:00
 tags = ["Javascript"]
 categories = ["Visualisation"]
-draft = true
+draft = false
 +++
 
 ## Sketching {#sketching}
@@ -12,7 +12,7 @@ draft = true
 <div class="HTML">
   <div></div>
 
-<script src="<https://rawgit.com/pshihn/rough/master/dist/rough.min.js>"></script>
+<script src="https://rawgit.com/pshihn/rough/master/dist/rough.min.js"></script>
 
 </div>
 

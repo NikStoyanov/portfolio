@@ -10,7 +10,7 @@
 
 #+HUGO_TAGS: Javascript
 #+HUGO_CATEGORIES: Visualisation
-#+HUGO_DRAFT: true
+#+HUGO_DRAFT: false
 
 #+STARTUP: showall
 #+STARTUP: showstars
