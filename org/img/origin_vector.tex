@@ -1,0 +1,22 @@
+\documentclass[10pt,letterpaper]{article}
+ 
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes.misc}
+
+\usepackage[active,tightpage,pdftex]{preview}
+
+\PreviewEnvironment{tikzpicture}
+ 
+\begin{document}
+\begin{tikzpicture}
+	% axes
+	\draw [<->, thick] (0, 5) node (yaxis) [above] {$x_2$}
+        |- (5, 0) node (xaxis) [right] {$x_1$};
+        \draw [thick] (0, 0) -- (-5, 0);
+        
+  	% draw vectors
+        \draw [->] (0, 0) -- (3, 3) node[font=\small] [above] {$\mathbf{x}$};
+        \draw [->] (0, 0) -- (-3, 3) node[font=\small] [above] {$\mathbf{w}$};
+\end{tikzpicture}
+\end{document}

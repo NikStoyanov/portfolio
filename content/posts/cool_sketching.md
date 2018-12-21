@@ -1,5 +1,5 @@
 +++
-title = "Sketching for Outeach"
+title = "Sketching for Outreach"
 author = ["Nikola Stoyanov"]
 date = 2018-11-01T00:00:00+00:00
 tags = ["Javascript"]

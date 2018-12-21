@@ -1,0 +1,28 @@
+\message{ !name(arbitrary_vector.tex)}\documentclass[10pt,letterpaper]{article}
+ 
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes.misc}
+
+\usepackage[active,tightpage,pdftex]{preview}
+
+\PreviewEnvironment{tikzpicture}
+ 
+\begin{document}
+
+\message{ !name(arbitrary_vector.tex) !offset(-3) }
+
+\begin{tikzpicture}
+	% axes
+	\draw [<->, thick] (0, 5) node (yaxis) [above] {$x_2$}
+        |- (5, 0) node (xaxis) [right] {$x_1$};
+        \draw [thick] (0, 0) -- (-5, 0);
+        
+  	% draw vectors
+        \draw [->] (0, 0) -- (-3, 3) node[font=\small] [above] {$\mathbf{w}$};
+        \draw [->] (0, 0) -- (3, 3) node[font=\small] [above] {$\mathbf{x}$};
+        \draw [->] (0, 0) -- (3, 1) node[font=\small] [right] {$\mathbf{a}$};
+        \draw [->] (3, 1) -- (3, 3) node[font=\small] [midway, right] {$\mathbf{x-a}$};
+\end{tikzpicture}
+\end{document}
+\message{ !name(arbitrary_vector.tex) !offset(-28) }
