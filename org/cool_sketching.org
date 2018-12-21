@@ -2,7 +2,7 @@
 #+HUGO_BASE_DIR: ../
 #+HUGO_SECTION: posts
 
-#+TITLE: Sketching for Outeach
+#+TITLE: Sketching for Outreach
 
 #+AUTHOR: Nikola Stoyanov
 #+EMAIL: nikst@posteo.net
