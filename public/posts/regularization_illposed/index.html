@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.53" />
+
+    
+    
+    
+
+<title>Regularization of ill-posed problems • Nikola Stoyanov</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Regularization of ill-posed problems"/>
+<meta name="twitter:description" content="Recently I had to reconstruct a solution for the thermal boundary between boiling cryogenic liquid and a steel plate. The temperature of the cryogenic-steel boundary is extremely difficult to measure experimentally since the mere presence of the thermocouples would affect the nucleation of bubbles which in turn affect the heat extraction. Also modeling the boiling phenomena is a great computational challenge which is too great of a topic to undertake for this problem."/>
+
+<meta property="og:title" content="Regularization of ill-posed problems" />
+<meta property="og:description" content="Recently I had to reconstruct a solution for the thermal boundary between boiling cryogenic liquid and a steel plate. The temperature of the cryogenic-steel boundary is extremely difficult to measure experimentally since the mere presence of the thermocouples would affect the nucleation of bubbles which in turn affect the heat extraction. Also modeling the boiling phenomena is a great computational challenge which is too great of a topic to undertake for this problem." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://niksto.net/posts/regularization_illposed/" /><meta property="article:published_time" content="2018-12-29T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-12-29T00:00:00&#43;00:00"/><meta property="og:site_name" content="Title" />
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/scss/hyde-hyde.9181f25ed2263aeb878ec6f8a84f10c4ebb16150000fca8767308880bdde5ca0.css" integrity="sha256-kYHyXtImOuuHjsb4qE8QxOuxYVAAD8qHZzCIgL3eXKA=">
+
+
+<link rel="stylesheet" href="/scss/print.2744dcbf8a0b2e74f8a50e4b34e5f441be7cf93cc7de27029121c6a09f9e77bc.css" integrity="sha256-J0Tcv4oLLnT4pQ5LNOX0Qb58&#43;TzH3icCkSHGoJ&#43;ed7w=" media="print">
+
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://niksto.net/">Nikola Stoyanov</a>
+      </span>
+      
+      <p class="site__description">
+         Personal Website 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Nikola Stoyanov</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/">
+						<span>Home</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/posts/">
+						<span>Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/portfolio/">
+						<span>Portfolio</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/about/">
+						<span>About</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	<a href="https://twitter.com/nikola3141" rel="me"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/NikStoyanov" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	<a href="https://linkedin.com/in/nikola-stoyanov-73709676" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	<a href="https://keybase.io/nikst" rel="me"><i class="fab fa-keybase fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="mailto:nikst@posteo.net" rel="me"><i class="fas fa-at fa-lg" aria-hidden="true"></i></a>
+    
+    
+	<a href="https://news.ycombinator.com/user?id=fathead_glacier" rel="me"><i class="fab fa-hacker-news" aria-hidden="true"></i></a>
+	
+</section>
+
+      </div>
+    </div>
+    <div class="copyright">
+  &copy; 2018 Nikola Stoyanov.
+  <br/>
+  <a href="https://creativecommons.org/licenses/by-sa/4.0">Some Rights Reserved</a>.
+  
+</div>
+
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1>Regularization of ill-posed problems</h1>
+    
+    
+<div class="post__meta">
+    
+    
+      <i class="fas fa-calendar-alt"></i> Dec 29, 2018
+    
+    
+    
+      
+      
+          in
+          
+          
+              <a class="badge badge-category" href="/categories/optimization">OPTIMIZATION</a>
+              
+          
+      
+    
+    
+    
+      
+      
+          <br/>
+           <i class="fas fa-tags"></i>
+          
+          <a class="badge badge-tag" href="/tags/python">python</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/scipy">scipy</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/computing">computing</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/numerical">numerical</a>
+          
+      
+    
+    
+    <br/>
+    <i class="fas fa-clock"></i> 8 min read
+</div>
+
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p>Recently I had to reconstruct a solution for the thermal boundary between boiling cryogenic liquid and a steel plate. The temperature of the cryogenic-steel boundary is extremely difficult to measure experimentally since the mere presence of the thermocouples would affect the nucleation of bubbles which in turn affect the heat extraction. Also modeling the boiling phenomena is a great computational challenge which is too great of a topic to undertake for this problem. An easier way would be to perform an experiment and measure the temperature at the bottom of the plate. We can then build a direct numerical model which predicts those temperatures and reconstruct the exposure by iterating the initial guess. In this post I will present the Tikhonov regularization method which is used to solve the ill-posed problem.</p>
+
+<h2 id="direct-problem">Direct problem</h2>
+
+<p>In theory inversing the heat equation sounds great, however, the direct numerical implementation would inevitable lead to an ill-posed problem which we cannot solve. To illustrate lets consider the one dimensional heat transfer problem. We want to reconstruct temperatures \(T(x, t=t_{0})\) in the past, based on present-day measurements \(T(x, t=t_1)\). In this model we consider the diffusion problem only without and external heat generation or internal heat generation. The heat equation is then given by the parabolic partial differential equation below.</p>
+
+<p>$$
+\frac{\partial T}{\partial t} = u \frac{\partial^{2} T}{\partial x^{2}}
+$$</p>
+
+<p>Where \(T\) is temperature, \(t\) is time, \(u\) is a constant to represent the material properties and \(x\) is the length dimension. The equation represents the balance of energy between the capacitive term \(\partial T/\partial t\) and the diffusion \(\partial T^{2}/\partial x^{2}\) i.e. the heat transfered through diffusion is responsible for the temperature change.</p>
+
+<p>Lets impose a periodic boundary condition.</p>
+
+<p>$$
+T(x+L, t) = T(x, t)
+$$</p>
+
+<p>The heat equation can be solved by a simple finite difference explicit scheme as below.</p>
+
+<p>$$
+\frac{\Delta T_{n}}{\Delta t} = u \frac{T_{n-1} - T_{n}}{\Delta x^{2}} - u \frac{T_{n} - T_{n+1}}{\Delta x^{2}}
+$$</p>
+
+<p>The equation can be vectorized and we can incorporate the boundary condition in the matrix L to handle the internal and external nodes.</p>
+
+<p>$$
+\frac{\Delta T}{\Delta t} = u \frac{L T}{\Delta x^{2}}
+$$</p>
+
+<p>The linear combination of the equations can then be rewritten by combining the boundary condition, $L$ and the material properties, $u$ as below.</p>
+
+<p>$$
+T_{t+1} = A T_{t}
+$$</p>
+
+<p>Explicit schemes have issues with numerical stability and require limiting values of the mesh size, \(\Delta x\) and time step, \(t\). For those interested, the reason is the we are solving a direct system of equations and we need to allow enough time, \( t \) for the information to propagate from cell to cell, \( \Delta x \). The critical relationship is known as the Courant–Friedrichs–Lewy (CFL) condition and we would need to check that it is satisfied.</p>
+
+<p>If we chose the values of the constants the above equation can be solved directly. In fact this is known as the direct problem.</p>
+
+<p>The finite difference method can be conveniently implemented using a Toeplitz matrix to approximate the derivatives. The matrix is build using constant value descending diagonals from left to right and can be represented as</p>
+
+<p>\[ \begin{bmatrix}a &amp; b &amp; c &amp; d \\\ d &amp; a &amp; b &amp; c \\\ c &amp; d &amp; a &amp; b \\\ d &amp; c &amp; b &amp; a \end{bmatrix}\]</p>
+
+<p>Our simple discretization scheme is using forward difference for the time and central difference for the space, so lets implement it.</p>
+
+<p>We will use numpy and scipy for our work.</p>
+
+<pre><code class="language-python">import scipy.linalg
+import numpy as np
+</code></pre>
+
+<p>The domain is discretised using \( n=40 \) elements and the time step is \( t=1 \).</p>
+
+<pre><code class="language-python">n = 40
+t = 1e1
+</code></pre>
+
+<p>We can then apply the boundary condition using the Toeplitz matrix.</p>
+
+<pre><code class="language-python">A = np.zeros((1, n))
+A[0, 0] = -1
+A[0, 1] = 0.5
+A[0, -1] = 0.5
+L = scipy.linalg.toeplitz(A)
+</code></pre>
+
+<p>Let us check the CFL condition for our chosen constants.</p>
+
+<pre><code class="language-python">t/n &lt; 1
+</code></pre>
+
+<pre><code>True
+</code></pre>
+
+<p>all seems okay, we can then calculate the matrix \( A \).</p>
+
+<pre><code class="language-python">A = scipy.linalg.fractional_matrix_power(np.eye(n) + L, t)
+</code></pre>
+
+<p>The initial condition is then set to provide us with a problem that is interesting to recover.</p>
+
+<pre><code class="language-python">x = np.arange(0, n)
+Tt = np.sin(3*np.pi * x / n)
+</code></pre>
+
+<p>We can then calculate the direct problem \( T_{t+1} = A T_{t} \).</p>
+
+<pre><code class="language-python">Tfwd = np.dot(A, Tt)
+Tfwd
+</code></pre>
+
+<pre><code>array([ 0.48258534,  0.52670091,  0.54171091,  0.62253495,  0.66895761,
+        0.73312732,  0.75678431,  0.75913893,  0.71954341,  0.64474529,
+        0.53431844,  0.39482101,  0.23350572,  0.05928686, -0.1182082 ,
+       -0.28917105, -0.44415427, -0.57459345, -0.67328051, -0.73476198,
+       -0.75564038, -0.73476198, -0.67328051, -0.57459345, -0.44415427,
+       -0.28917105, -0.1182082 ,  0.05928686,  0.23350572,  0.39482101,
+        0.53431844,  0.64474529,  0.71954341,  0.75913893,  0.75678431,
+        0.73312732,  0.66895761,  0.62253495,  0.54171091,  0.52670091])
+</code></pre>
+
+<p>The solution, \( T_{t+1} \) is then visualized and it can be seen that there has been diffusion towards the 0 temperature condition.</p>
+
+<pre><code class="language-python">import matplotlib.pyplot as plt
+
+plt.plot(x, Tt, label='$T_{t}$')
+plt.plot(x, Tfwd, label='$T_{t+1}$')
+
+plt.legend()
+plt.show()
+</code></pre>
+
+<p><img src="/img/regularization_illposed_files/regularization_illposed_34_0.png" alt="png" /></p>
+
+<h2 id="inverse-problem">Inverse problem</h2>
+
+<p>The interesting question then becomes: what if we already know the values of \( T_{t+1} \) and want to find what \( T_{t} \) was? Such a case can be that we have measured the temperature and we are trying to figure out what the temperature used to be before. Naively we can try to inverse the matrix \( A \).</p>
+
+<p>\[
+T_{t} = A^{-1} T_{t+1}
+\]</p>
+
+<pre><code class="language-python">Tinv = np.dot(np.linalg.inv(A), Tfwd)
+Tinv
+</code></pre>
+
+<pre><code>array([ 6.800e+01, -2.000e+00, -3.560e+02, -4.000e+00,  9.160e+02,
+        3.000e+01, -1.632e+03, -2.200e+01,  2.192e+03, -2.400e+01,
+       -2.288e+03,  9.600e+01,  1.920e+03, -1.880e+02, -1.304e+03,
+        2.540e+02,  7.400e+02, -2.680e+02, -3.680e+02,  2.120e+02,
+        1.680e+02, -1.280e+02, -7.200e+01,  5.200e+01,  1.600e+01,
+       -1.600e+01,  8.000e+00, -2.000e+00, -1.600e+01,  0.000e+00,
+        4.000e+00,  0.000e+00, -4.000e+00,  6.000e+00, -1.200e+01,
+       -2.000e+00,  8.000e+00,  4.000e+00, -8.000e+00,  0.000e+00])
+</code></pre>
+
+<p>We have obtained the inverse matrix. Lets check if we can recover the identity matrix, \( I \), even though in this case a visual inspection tells me that something is not right. We are expecting to obtain the equation below.</p>
+
+<p>\[
+A^{-1}A = I
+\]</p>
+
+<p>We will see that for our case we would not be able to recover it which means that our inversion did not work satisfactory. In other words during the inversion the condition number of the matrix \( A \) is so large that the rounding errors are amplified to the point where the errors dominate the solution.</p>
+
+<pre><code class="language-python">np.allclose(np.dot(A, np.linalg.inv(A)), np.eye(n))
+</code></pre>
+
+<pre><code>False
+</code></pre>
+
+<p>As expected our matrix is ill-conditioned and direct inversion did not provide satisfactory results. Lets check the condition number.</p>
+
+<pre><code class="language-python">np.linalg.cond(A)
+</code></pre>
+
+<pre><code>3.249636913192119e+16
+</code></pre>
+
+<p>This is a huge number! The problem arises if the condition number is greater than the machine precision.</p>
+
+<pre><code class="language-python">np.linalg.cond(A) &gt; np.finfo(A.dtype).eps
+</code></pre>
+
+<pre><code>True
+</code></pre>
+
+<p>It seems that this is a wrong approach to use. The condition number is orders of magnitude larger and the errors speak for themselves. In the plot below we are expecting \( T_{t} \) and \( T_{inv} \) to match.</p>
+
+<pre><code class="language-python">plt.plot(x, Tt, label='$T_{t}$')
+plt.plot(x, Tinv, label='$T_{inv}$')
+
+plt.legend()
+plt.show()
+</code></pre>
+
+<p><img src="/img/regularization_illposed_files/regularization_illposed_48_0.png" alt="png" /></p>
+
+<p>We have clearly not been able to recover \(T_{t}\) from the naive method of inversion.</p>
+
+<h2 id="tikhonov-regularization">Tikhonov Regularization</h2>
+
+<p>Tikhonov regularization, with small modification known as Ridge regression in statistics or Weight decay in machine learning can solve the problem by imposing a penalty term \( \lambda \). Such problems can be formulated as</p>
+
+<p>\[
+\begin{align}
+    \text{Minimize } &amp; ||A T_{t} - T_{fwd}||_{2}^{2} + \lambda ||LT_{t}||^{2}_{2} \\<br />
+    \text{Subject to } &amp; A \geq 0
+\end{align}
+\]</p>
+
+<p>This can be done using a linear least squares solver by \(lstsq(B, C)\) where we can implement the Tikhonov regularization in the arguments. For reference, the least squares solver expects problems of the type below.</p>
+
+<p>\[
+\text{Minimize } ||AT_{t} - T_{fwd}||_{2}^{2}
+\]</p>
+
+<p>The arguments been to be modified as such:</p>
+
+<p>\[
+B = \begin{bmatrix}
+    A\\<br />
+    \lambda L
+    \end{bmatrix}
+\]</p>
+
+<p>And</p>
+
+<p>\[
+C = \begin{bmatrix}
+    T_{fwd}\\<br />
+    L \times 0\\<br />
+    \end{bmatrix}
+\]</p>
+
+<p>We also need a function to calculate the \( R^{2} \) of the fit.</p>
+
+<pre><code class="language-python">from scipy.stats import linregress
+
+def rsqr(x, y):
+    slope, intercept, r_value, p_value, std_err = linregress(x, y)
+    return r_value**2
+</code></pre>
+
+<p>The problem can then be solved.</p>
+
+<pre><code class="language-python">classifiers = [100, 50, 15, 5, 1, 0.1]
+r_squared = []
+
+C = np.concatenate([Tfwd, np.zeros(n)])
+
+fig, ax = plt.subplots(1, 2, figsize=(15, 4))
+for tikhonov in classifiers:
+    B = np.concatenate([A, tikhonov*L])
+    T_lstqs =  np.linalg.lstsq(B, C, rcond=None)
+    ax[0].scatter(x, T_lstqs[0], label=&quot;$\lambda=$&quot; + str(tikhonov))
+    
+    r_squared.append(rsqr(Tt, T_lstqs[0]))
+    ax[1].scatter(tikhonov, r_squared[-1], label=&quot;$\lambda=$&quot; + str(tikhonov))
+
+ax[0].plot(x, Tt, label='$T_{t}$', linewidth=2.5, color='black')
+ax[0].legend()
+
+ax[1].plot(classifiers, r_squared)
+ax[1].legend()
+plt.show()
+</code></pre>
+
+<p>We can see the inverse solution as a function of the Tikhonov regularization in the first figure and the corresponding \(R^2\) value in the second figure.</p>
+
+<p><img src="/img/regularization_illposed_files/regularization_illposed_62_0.png" alt="png" /></p>
+
+<p>The results converge towards \( T_{t} \) as \( \lim_{\lambda \to 0} T(\lambda) \).</p>
+
+<h2 id="lstsq-solution">lstsq Solution</h2>
+
+<p>For completeness I want to show that we can straight up use $lstsq$ to solve the problem without going in any detail about regularization. However, in doing this we don&rsquo;t learn anything new and we will see in further posts that Tikhonov regularization is indeed needed for solving the bigger optimization problem which is the temperature recovery through the thickness of the specimen to obtain the surface temperature.</p>
+
+<pre><code class="language-python">Tls = np.linalg.lstsq(A, Tfwd, rcond=None)
+</code></pre>
+
+<pre><code class="language-python">plt.scatter(x, Tls[0], label='Tls')
+plt.plot(x, Tt, label='$T_{t}$')
+plt.legend()
+plt.show()
+</code></pre>
+
+<p><img src="/img/regularization_illposed_files/regularization_illposed_67_0.png" alt="png" /></p>
+
+<p>Which gives a very good fit!</p>
+
+<pre><code class="language-python">rsqr(Tt, Tls[0])
+</code></pre>
+
+<pre><code>0.9998417880466148
+</code></pre>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>We have implemented Tikhonov regularization to solve an ill-conditioned inverse problem. Now we can recover temperatures from previous time steps by only using the current results. Stay tuned for the next posts where I will implement the above solution technique to recover temperatures on the exposed surface by readings from thermocouples located in the depth.</p>
+
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/posts/cool_sketching/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Sketching for Outreach</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+        <div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'niksto-net';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-129217636-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+
+    
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        
+            
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/ipython.min.js"></script>
+            
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+            
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/c.min.js"></script>
+            
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/c&#43;&#43;.min.js"></script>
+            
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/shell.min.js"></script>
+            
+        
+    
+    <script type="text/javascript">
+        
+        hljs.configure({languages: ["ipython, python, c, c++, shell"]});
+        
+        hljs.initHighlightingOnLoad();
+    </script>
+    
+
+
+
+
+    
+
+
+
+    </body>
+</html>

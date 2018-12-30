@@ -6,10 +6,19 @@
     <description>Recent content in Numerical on Nikola Stoyanov</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 02 Aug 2018 00:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 29 Dec 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://niksto.net/tags/numerical/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Regularization of ill-posed problems</title>
+      <link>https://niksto.net/posts/regularization_illposed/</link>
+      <pubDate>Sat, 29 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://niksto.net/posts/regularization_illposed/</guid>
+      <description>Recently I had to reconstruct a solution for the thermal boundary between boiling cryogenic liquid and a steel plate. The temperature of the cryogenic-steel boundary is extremely difficult to measure experimentally since the mere presence of the thermocouples would affect the nucleation of bubbles which in turn affect the heat extraction. Also modeling the boiling phenomena is a great computational challenge which is too great of a topic to undertake for this problem.</description>
+    </item>
     
     <item>
       <title>Exploring Fractals</title>
