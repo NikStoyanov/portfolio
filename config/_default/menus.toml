@@ -1,0 +1,24 @@
+[[main]]
+    name = "Home"
+    url = "#about"
+    weight = 1
+
+[[main]]
+    name = "Posts"
+    url = "#posts"
+    weight = 2
+
+[[main]]
+    name = "Projects"
+    url = "#projects"
+    weight = 3
+
+[[main]]
+    name = "CV"
+    url = "files/cv.pdf"
+    weight = 4
+
+[[main]]
+  name = "Contact"
+  url = "#contact"
+  weight = 5

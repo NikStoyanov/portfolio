@@ -1,0 +1,34 @@
+# -*- org-export-babel-evaluate: nil -*-
+#+HUGO_BASE_DIR: ../
+#+HUGO_SECTION: posts
+
+#+TITLE: Singular Value Decomposition
+
+#+AUTHOR: Nikola Stoyanov
+#+EMAIL: nikst@posteo.net
+#+DATE: <2019-02-03 Sun>
+
+#+HUGO_TAGS: Python Numpy Scipy SVD
+#+HUGO_CATEGORIES: Data-Science
+#+HUGO_DRAFT: true
+
+#+STARTUP: showeverything
+#+STARTUP: showstars
+#+STARTUP: inlineimages
+
+* 
+#+BEGIN_SRC ipython :exports both :ipyfile ./img/svd1.png :async t :results drawer :session
+import numpy as np
+import matplotlib.pyplot as plt
+
+rand = np.random.rand(10)
+fig = plt.figure()
+plt.plot(rand, rand)
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+# Out[15]:
+[[file:./img/svd1.png]]
+:END:

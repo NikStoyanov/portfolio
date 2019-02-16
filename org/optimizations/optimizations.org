@@ -1,0 +1,158 @@
+# -*- org-export-babel-evaluate: nil -*-
+# -*- org-confirm-babel-evaluate: nil -*-
+#+HUGO_BASE_DIR: ../../
+#+HUGO_SECTION: posts
+
+#+TITLE: Optimization Techniques
+
+#+AUTHOR: Nikola Stoyanov
+#+EMAIL: nikst@posteo.net
+#+DATE: <2019-02-12 Tue>
+
+#+HUGO_TAGS: Python
+#+HUGO_CATEGORIES: Numerical-Optimization
+#+HUGO_DRAFT: false
+
+#+STARTUP: showeverything
+#+STARTUP: showstars
+#+STARTUP: inlineimages
+
+http://people.duke.edu/~ccc14/sta-663-2018/notebooks/S09G_Gradient_Descent_Optimization.html
+Recently I had to implement an optimization algorithm to extract
+material properties from an experiment. In that problem I was
+minimizing the Euclidean norm of the errors and since it is a convex a
+simple gradient descent did the job satisfactory. However, I decided
+to teach myself more sophisticated methods for future work when I
+might have to minimize non-linear problems. In this post I will
+implement and compare the gradient descdent with and without momentum,
+and the Newton conjugate gradient method.
+
+* Gradient Descent
+The gradient descdent method computes the derivative at the current
+point to determine the step direction and then given a step size
+calculates the next point. It is the simplest optimization algorithm
+and given a convex function (no local minima) and a sufficient step it
+will converge satisfactory. Let's implement it! I will use the *numpy*
+and the *autograd* package to calculate my derivatives using automatic
+differentiation. For *simple* functions we can write our own
+analytical solutions, however, I would like to explore more complex
+functions later so it is essential to be implemented.
+
+#+BEGIN_SRC ipython :exports both :async t :results output :session
+  import autograd
+  import numpy as np
+  import matplotlib.pyplot as plt
+#+END_SRC
+
+#+RESULTS:
+
+Then we need to define a function to explore. Let's go with a simple
+convex function to illustrate the idea.
+
+\begin{equation}
+f(x) = x^2
+\end{equation}
+
+#+BEGIN_SRC ipython :exports both :async t :results output :session
+  def fun(x):
+      return x**2
+#+END_SRC
+
+#+RESULTS:
+
+The gradient descent algorithm in one dimension can be written as:
+
+\begin{equation}
+x_{i+1} = x_i - \alpha \nabla f(x_i)
+\end{equation}
+
+Where $\nabla = \frac{df}{dx}$. The gradient descent algorithm can then be written.
+
+#+BEGIN_SRC ipython :exports both :async t :results output :session
+  def grad_desc(x, fun, alpha=0.1, max_iter=100):
+      xs = np.zeros(1 + max_iter)
+      xs[0] = x
+      grad = autograd.grad(fun)
+    
+      for step in range(max_iter):
+          x = x - alpha * grad(x)
+          xs[step + 1] = x
+        
+      return xs
+#+END_SRC
+
+#+RESULTS:
+
+Lets explore a solution of our convex function which has a minima at
+$(0,0)$. We compute the analytical solution and the optimization
+results which we can then compare. The optimization is performed for a
+total to 10 steps.
+
+#+BEGIN_SRC ipython :session :ipyfile grad_desc_1d_1.svg :exports both :async t :results raw drawer
+  alpha = 0.1
+  x0 = 1.
+
+  x_opt = grad_desc(x0, fun, max_iter=10)
+  y_opt = fun(x_opt)
+
+  x_true = np.linspace(-1.2, 1.2, 100)
+  y_true = fun(x_true)
+
+  plt.plot(x_true, y_true)
+  plt.plot(x_opt, y_opt, 'o-', c='red')
+
+  for i, (x, y) in enumerate(zip(x_opt, y_opt), 1):
+      plt.text(x - 0.1, y + 0.1, i, fontsize=15)
+
+  plt.show()
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+# Out[27]:
+[[file:grad_desc_1d_1.svg]]
+:END:
+
+From the figure it is clear that when the gradient was large
+(i.e. step 1-2) the jump was also large. As the gradient decreased
+(i.e. step > 4) the jumps also decreased. This is straightforward from
+our formulation.
+
+* Gradient Descent with Momentum
+
+* Newton Gradient Descent
+
+#+BEGIN_SRC ipython :exports both :async t :results output :session
+  def reporter(p):
+      """Reporter function to capture intermediate states of optimization."""
+      global ps
+      ps.append(p)
+#+END_SRC
+
+#+BEGIN_SRC ipython :session :ipyfile ./test.png :exports both :async t :results raw drawer
+import numpy as np
+import matplotlib.pyplot as plt
+
+a = np.random.rand(10)
+b = np.sin(a)
+
+plt.plot(a, b)
+plt.show()
+#+END_SRC
+
+#+BEGIN_SRC ipython :exports both :async t :results output :session
+H = np.array([
+    [802, -400],
+    [-400, 200]
+])
+
+np.linalg.cond(H)
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+# Out[1]:
+[[file:./test.png]]
+:END:
+
+* np.linalg.cond(H)

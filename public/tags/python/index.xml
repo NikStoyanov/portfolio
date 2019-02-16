@@ -2,41 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on Nikola Stoyanov</title>
-    <link>https://niksto.net/tags/python/</link>
+    <link>https://nikstoyanov.me/tags/python/</link>
     <description>Recent content in Python on Nikola Stoyanov</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 29 Dec 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 28 Dec 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://niksto.net/tags/python/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://nikstoyanov.me/tags/python/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Regularization of ill-posed problems</title>
-      <link>https://niksto.net/posts/regularization_illposed/</link>
-      <pubDate>Sat, 29 Dec 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://niksto.net/posts/regularization_illposed/</guid>
-      <description>Recently I had to reconstruct a solution for the thermal boundary between boiling cryogenic liquid and a steel plate. The temperature of the cryogenic-steel boundary is extremely difficult to measure experimentally since the mere presence of the thermocouples would affect the nucleation of bubbles which in turn affect the heat extraction. Also modeling the boiling phenomena is a great computational challenge which is too great of a topic to undertake for this problem.</description>
-    </item>
     
     <item>
-      <title>Exploring Fractals</title>
-      <link>https://niksto.net/posts/exploring_fractals/</link>
-      <pubDate>Thu, 02 Aug 2018 00:00:00 +0100</pubDate>
+      <title>Regalirization of ill-posed problems</title>
+      <link>https://nikstoyanov.me/post/2018-dec-29-regularization-illposed/</link>
+      <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://niksto.net/posts/exploring_fractals/</guid>
-      <description>Introduction I recently rewatched a video from Arthur C. Clarke which is where I first saw what fractals are. I saw this video while I was in high school and having rewatched it now I wondered if I can generate the Mandelbrot set and explore some parts of it myself. I did a quick search online and I discovered that Jean Francois Puget had already done that and achieved great results.</description>
-    </item>
-    
-    <item>
-      <title>Python and VTK scientific visualisation</title>
-      <link>https://niksto.net/posts/crackvis/</link>
-      <pubDate>Wed, 06 Jun 2018 00:00:00 +0100</pubDate>
-      
-      <guid>https://niksto.net/posts/crackvis/</guid>
-      <description>Background CrackVis is a visualisation tool which uses VTK to display a point cloud from ABAQUS 2D simulations. The input is a csv file which holds data in the following format:
-   X Y Z1 Z2 &amp;hellip;     &amp;hellip; &amp;hellip; &amp;hellip; &amp;hellip; &amp;hellip;    Where \(X\) and \(Y\) are the coordinates of the nodes and \(Z_n\) is the data to be investigated.</description>
+      <guid>https://nikstoyanov.me/post/2018-dec-29-regularization-illposed/</guid>
+      <description> </description>
     </item>
     
   </channel>

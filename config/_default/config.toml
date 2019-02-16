@@ -1,0 +1,34 @@
+title = "Nikola Stoyanov"
+baseURL = "https://nikstoyanov.me/"
+
+disqusShortname = "niksto-net"
+googleanalytics = "UA-129217636-1"
+
+theme = "hugo-academic"
+enableGitInfo = true
+
+defaultContentLanguage = "en"
+hasCJKLanguage = false
+defaultContentLanguageInSubdir = false
+
+paginate = 10
+enableEmoji = true
+footnotereturnlinkcontents = "<sup>^</sup>"
+ignoreFiles = ["\\.ipynb$", ".ipynb_checkpoints$", "\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+preserveTaxonomyNames = true
+
+[outputs]
+  home = [ "HTML", "CSS", "RSS", "JSON" ]
+  section = [ "HTML", "RSS" ]
+
+[blackfriday]
+    hrefTargetBlank = true
+    angledQuotes = false
+    latexDashes = true
+    extensions = ["backslashLineBreak"]
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  publication_type = "publication_types"
+  author = "authors"

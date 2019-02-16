@@ -10,11 +10,11 @@
 
 #+HUGO_TAGS: "support vector machine" "data science"  "numerical optimization"
 #+HUGO_CATEGORIES: "machine learning" "python"
-#+HUGO_DRAFT: false
+#+HUGO_DRAFT: true
 
 #+HUGO_MENU: :menu "posts" :weight 2001
 
-#+STARTUP: showall
+#+STARTUP: showeverything
 #+STARTUP: showstars
 #+STARTUP: inlineimages
 

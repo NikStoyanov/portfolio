@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Numerical Analysis on Nikola Stoyanov</title>
+    <link>https://nikstoyanov.me/tags/numerical-analysis/</link>
+    <description>Recent content in Numerical Analysis on Nikola Stoyanov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 28 Dec 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://nikstoyanov.me/tags/numerical-analysis/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Regalirization of ill-posed problems</title>
+      <link>https://nikstoyanov.me/post/2018-dec-29-regularization-illposed/</link>
+      <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://nikstoyanov.me/post/2018-dec-29-regularization-illposed/</guid>
+      <description> </description>
+    </item>
+    
+  </channel>
+</rss>
