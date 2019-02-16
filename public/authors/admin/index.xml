@@ -6,6 +6,7 @@
     <description>Recent content in admin on Nikola Stoyanov</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Sat, 16 Feb 2019 16:19:42 +0000</lastBuildDate>
     
 	<atom:link href="https://nikstoyanov.me/authors/admin/index.xml" rel="self" type="application/rss+xml" />
     
@@ -13,11 +14,11 @@
     <item>
       <title></title>
       <link>https://nikstoyanov.me/author/admin/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 16 Feb 2019 16:19:42 +0000</pubDate>
       
       <guid>https://nikstoyanov.me/author/admin/</guid>
-      <description>Nelson Bighetti is a professor of artificial intelligence at the Stanford AI Lab. His research interests include distributed robotics, mobile computing and programmable matter. He leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet.</description>
+      <description>Hello! My name is Nikola Stoyanov and I am a materials science PhD student at the University of Manchester.
+My current research activities include the numerical element modeling of the structural and thermal resistance of shell elements using cohesive fracture models during low and high temperature exporures. I am also trying to figure out a way to make predictions without excessive computations and access to expensive software - analytical solutions are very difficult, but maybe new emerging methods can hold an answer.</description>
     </item>
     
   </channel>

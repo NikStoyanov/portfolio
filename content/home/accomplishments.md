@@ -22,25 +22,25 @@ date_format = "Jan 2006"
 [[item]]
   title = "Neural Networks and Deep Learning"
   organization = "Coursera"
-  certificate_url = "https://www.coursera.org"
-  date_start = "2018-10-01"
+  certificate_url = "https://www.coursera.org/account/accomplishments/verify/Q8ELUVSBSLLG"
+  date_start = "2018-03-01"
   date_end = ""
   description = ""
 
 [[item]]
-  title = "Blockchain Fundamentals"
-  organization = "edX"
-  certificate_url = "https://www.edx.org"
-  date_start = "2018-03-01"
+  title = "Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization"
+  organization = "Coursera"
+  certificate_url = "https://www.coursera.org/account/accomplishments/verify/Y2U954GUC5L6"
+  date_start = "2018-04-01"
   date_end = ""
   description = ""
-  
+
 [[item]]
-  title = "Intro to Python"
-  organization = "DataCamp"
-  certificate_url = "https://www.datacamp.com"
-  date_start = "2017-07-01"
-  date_end = "2017-12-21"
+  title = "Structuring Machine Learning Projects"
+  organization = "Coursera"
+  certificate_url = "https://www.coursera.org/account/accomplishments/verify/ETES8AMF8TFH"
+  date_start = "2018-05-01"
+  date_end = ""
   description = ""
 
 +++

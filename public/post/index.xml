@@ -6,40 +6,27 @@
     <description>Recent content in Posts on Nikola Stoyanov</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 05 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 16 Feb 2019 16:19:42 +0000</lastBuildDate>
     
 	<atom:link href="https://nikstoyanov.me/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Display Jupyter Notebooks with Academic</title>
-      <link>https://nikstoyanov.me/post/jupyter/</link>
-      <pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://nikstoyanov.me/post/jupyter/</guid>
-      <description>from IPython.core.display import Image Image(&#39;https://www.python.org/static/community_logos/python-logo-master-v3-TM-flattened.png&#39;)  print(&amp;quot;Welcome to Academic!&amp;quot;)  Welcome to Academic!  Install Python and Jupyter Install Anaconda which includes Python 3 and Jupyter notebook.
-Otherwise, for advanced users, install Jupyter notebook with pip3 install jupyter.
-Create a new blog post as usual Run the following commands in your Terminal, substituting &amp;lt;MY_WEBSITE_FOLDER&amp;gt; and my-post with the file path to your Academic website folder and a name for your blog post (without spaces), respectively:</description>
-    </item>
-    
-    <item>
       <title>Regalirization of ill-posed problems</title>
-      <link>https://nikstoyanov.me/post/2018-dec-29-regularization-illposed/</link>
+      <link>https://nikstoyanov.me/post/2018-12-29-regularization-illposed/</link>
       <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://nikstoyanov.me/post/2018-dec-29-regularization-illposed/</guid>
-      <description> </description>
+      <guid>https://nikstoyanov.me/post/2018-12-29-regularization-illposed/</guid>
+      <description>Recently I had to reconstruct a solution for the thermal boundary between boiling cryogenic liquid and a steel plate. The temperature of the cryogenic-steel boundary is extremely difficult to measure experimentally since the mere presence of the thermocouples would affect the nucleation of bubbles which in turn affect the heat extraction. Also modeling the boiling phenomena is a great computational challenge which is too great of a topic to undertake for this problem.</description>
     </item>
     
     <item>
-      <title>Academic: the website designer for Hugo</title>
-      <link>https://nikstoyanov.me/post/getting-started/</link>
-      <pubDate>Wed, 20 Apr 2016 00:00:00 +0100</pubDate>
+      <title>Exploring Fractals</title>
+      <link>https://nikstoyanov.me/post/2018-08-02-exploring-fractals/</link>
+      <pubDate>Tue, 28 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://nikstoyanov.me/post/getting-started/</guid>
-      <description>Academic makes it easy to create a beautiful website for free using Markdown. Customize anything on your site with widgets, themes, and language packs.
-Follow our easy step by step guide to learn how to build your own free website with Academic. Check out the personal demo or the business demo of what you&amp;rsquo;ll get in less than 10 minutes.
- View the documentation Ask a question Request a feature or report a bug Updating?</description>
+      <guid>https://nikstoyanov.me/post/2018-08-02-exploring-fractals/</guid>
+      <description>I recently rewatched a video from Arthur C. Clarke which is where I first saw what fractals are. I saw this video while I was in high school and having rewatched it now I wondered if I can generate the Mandelbrot set and explore some parts of it myself. I did a quick search online and I discovered that Jean Francois Puget had already done that and achieved great results. Learning from his work I decided to do some computational experiments.</description>
     </item>
     
   </channel>

@@ -73,6 +73,13 @@ user_groups = ["Researchers", "Visitors"]
 
 +++
 
-Nelson Bighetti is a professor of artificial intelligence at the Stanford AI Lab. His research interests include distributed robotics, mobile computing and programmable matter. He leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
+Hello! My name is Nikola Stoyanov and I am a materials science PhD student at the
+[University of Manchester](http://www.manchester.ac.uk/).
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate. 
+My current research activities include the numerical element modeling of
+the structural and thermal resistance of shell elements using cohesive
+fracture models during low and high temperature exporures. I am also 
+trying to figure out a way to make predictions without excessive computations and access to expensive
+software - analytical solutions are *very* difficult, but maybe new
+emerging methods can hold an answer.
+
