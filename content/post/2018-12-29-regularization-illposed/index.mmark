@@ -1,5 +1,5 @@
 +++
-title = "Regalirization of ill-posed problems"
+title = "Regularization of ill-posed problems"
 subtitle = "Implementing Tikhonov regularization (weight decay/ridge regression) in Python to solve ill-posed problems."
 summary = "Implementing Tikhonov regularization (weight decay/ridge regression) in Python to solve ill-posed problems."
 date = 2018-12-28T00:00:00Z
