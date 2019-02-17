@@ -1,14 +1,14 @@
 .input_prompt, .output_prompt {
-		width: 0px;
-		position: relative;
-		left: -8%;
-		float: left;
-		margin-top: 0px;
-		font-size: 16px;
+  width: 0px;
+  position: relative;
+  left: -8%;
+  float: left;
+  margin-top: 3px;
+  font-size: 16px;
 }
 
 .output_prompt {
-	color: rgba(0, 63, 255, 0.92);
+	color: #004BFF;
 }
 
 .output_text > pre {
