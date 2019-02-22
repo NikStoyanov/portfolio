@@ -5,7 +5,7 @@ disqusShortname = "niksto-net"
 googleanalytics = "UA-129217636-1"
 
 theme = "hugo-academic"
-enableGitInfo = true
+enableGitInfo = false
 
 defaultContentLanguage = "en"
 hasCJKLanguage = false
