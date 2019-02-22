@@ -14,7 +14,7 @@ logo = ""
 
 highlightjs = true
 highlightjsstyle = "github"
-highlightjslanguages = ["julia", "javascript", "r", "ipython", "python", "c", "c++", "shell"]
+highlight_languages =["julia"]
 
 math = true
 
