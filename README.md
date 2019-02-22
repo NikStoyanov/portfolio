@@ -2,12 +2,38 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/1483d258-f50f-4b99-bbff-fd1cf5b27a98/deploy-status)](https://app.netlify.com/sites/nikstoyanov/deploys)
 
-The repository holds the content of my personal website hosted on netlify:
-- Org-mode notebooks are in the /org directory
-- Jupyter notebooks are in the /notebook directory
+The repository holds the content of my personal website [nikstoyanov.me](https://nikstoyanov.me).
 
-To export:
-- For org-mode use [ox-hugo](https://ox-hugo.scripter.co/)
-- There is no native support for jupyter in hugo so use a custom script such as [nb\_hugo\_exporter](https://github.com/jbandlow/nb_hugo_exporter)
+Blog posts:
+- Are done typically using Python or Julia in a Jupyter notebook which can be found in the /content/post directory.
 
-The website is build using [Hugo](https://gohugo.io/) version 0.52 and the [hyde-hyde](https://themes.gohugo.io/hyde-hyde/) theme version 2.0.2.
+To build:
+- I run a bash file which exports the Jupyter notebook to markdown and appends it to an existing *.mmark file which holds the meta data for a blog post.
+
+```bash
+read -p "Folder path: " npath
+read -p "Notebook name: " notebook
+jupyter nbconvert $npath/$notebook.ipynb --execute --allow-errors --output-dir $npath --to markdown --template temp.tpl --ExecutePreprocessor.timeout=500 --NbConvertApp.output_files_dir=.
+cat $npath/$notebook.md | tee -a $npath/index.mmark
+rm $npath/$notebook.md
+```
+
+To deploy:
+- I host the website on [netlify](https://www.netlify.com/) for the continuos integration which builds the website on every push to this repository.
+
+Jupyter formatting:
+- By defauly the execution history does not get exported in markdown. To get the In[]/Out[] history of the cells like in Jupyter I had to modify the export template. The idea is to wrap the exported cells in a custom `<div>` which I can then style using custom css and I pass as an argument to my build file.
+
+```html
+{% block in_prompt %}
+<div class="prompt input_prompt">
+    {%- if cell.execution_count is defined -%}
+        In&nbsp;[{{ cell.execution_count|replace(None, "&nbsp;") }}]:
+    {%- else -%}
+        In&nbsp;[&nbsp;]:
+    {%- endif -%}
+</div>
+{% endblock in_prompt %}
+```
+
+The static website is build using [Hugo](https://gohugo.io/) version 0.52 and the [academic]([https://themes.gohugo.io/hyde-hyde/](https://sourcethemes.com/academic/)) theme version 4.0.0.
