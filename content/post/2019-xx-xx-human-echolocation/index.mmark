@@ -1,0 +1,27 @@
++++
+title = "Human echolocation in Julia"
+subtitle = "Using pixels to generate audio for echolocation."
+summary = "Using pixels to generate audio for echolocation."
+date = 2019-02-22T00:00:00Z
+draft = false
+
+authors = ["Admin"]
+
+tags = ["Julia", "Computer Vision"]
+categories = ["Echolocation.jl"]
+
+projects = []
+[image]
+  caption = ""
+
+  # Focal point (optional)
+  # Options: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight
+  focal_point = ""
++++
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+
