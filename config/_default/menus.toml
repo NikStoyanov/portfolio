@@ -27,3 +27,8 @@
   name = "Contact"
   url = "#contact"
   weight = 6
+
+[[main]]
+  name = "Activities"
+  url = "https://activity.nikstoyanov.me"
+  weight = 7
