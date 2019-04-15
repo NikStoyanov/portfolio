@@ -19,6 +19,12 @@ projects = []
   focal_point = ""
 +++
 
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+
 Recently I had to implement an optimization algorithm to extract
 material properties from an experiment. In that problem I was
 minimizing the Euclidean norm of the residuals and since it is a convex a
