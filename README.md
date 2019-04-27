@@ -19,10 +19,10 @@ rm $npath/$notebook.md
 ```
 
 To deploy:
-- I host the website on [netlify](https://www.netlify.com/) for the continuos integration which builds the website on every push to this repository.
+- I host the website on [netlify](https://www.netlify.com/) for the continuous integration which builds the website on every push to this repository.
 
 Jupyter formatting:
-- By defauly the execution history does not get exported in markdown. To get the In[]/Out[] history of the cells like in Jupyter I had to modify the export template. The idea is to wrap the exported cells in a custom `<div>` which I can then style using custom css and I pass as an argument to my build file.
+- By default the execution history does not get exported in markdown. To get the In[]/Out[] history of the cells like in Jupyter I had to modify the export template. The idea is to wrap the exported cells in a custom `<div>` which I can then style using custom css and I pass as an argument to my build file.
 
 ```html
 {% block in_prompt %}
