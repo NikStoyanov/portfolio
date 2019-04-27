@@ -6,7 +6,7 @@ title = "GoRun"
 date = 2019-04-27T00:00:00
 
 # Project summary to display on homepage.
-summary = "Plotting and editing GPS based activities using Go and the GUI Fyne with the Google Maps API."
+summary = "Plotting and editing GPS based activities using Go and the GUI Fyne with the Google Maps API. <br /> <br /> [![Build Status](https://travis-ci.org/NikStoyanov/gorun.svg?branch=master)](https://travis-ci.org/NikStoyanov/gorun) <br /> [![codecov](https://codecov.io/gh/NikStoyanov/gorun/branch/master/graph/badge.svg)](https://codecov.io/gh/NikStoyanov/gorun)"
 
 # Tags: can be used for filtering projects.
 # Example: `tags = ["machine-learning", "deep-learning"]`
