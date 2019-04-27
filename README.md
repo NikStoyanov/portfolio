@@ -54,4 +54,4 @@ Which makes is looks like:
 
 ![Jupyter history export](img/img1.png)
 
-The static website is build using [Hugo](https://gohugo.io/) version 0.52 and the [academic]([https://themes.gohugo.io/hyde-hyde/](https://sourcethemes.com/academic/)) theme version 4.0.0.
+The static website is build using [Hugo](https://gohugo.io/) version 0.53 and the [academic]([https://themes.gohugo.io/hyde-hyde/](https://sourcethemes.com/academic/)) theme version 4.0.0.
