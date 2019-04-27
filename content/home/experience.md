@@ -27,7 +27,7 @@ date_format = "January 2006"
   date_end = ""
   description = """
   Responsibilities include:
-  
+
   * Developing in-house regression methods for predictive analysis
   * Developing calculation software with .Net and VBA
   """

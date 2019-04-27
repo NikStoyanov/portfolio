@@ -1,13 +1,13 @@
 +++
 # Projects widget.
 widget = "projects"  # Do not modify this line!
-active = false  # Activate this widget? true/false
+active = true  # Activate this widget? true/false
 
 title = "Projects"
 subtitle = ""
 
 # Order that this section will appear in.
-weight = 50
+weight = 6
 
 # Content.
 # Display content from the following folder.
@@ -41,12 +41,23 @@ filter_default = 0
   tag = "*"
 
 [[filter]]
-  name = "Deep Learning"
-  tag = "Deep Learning"
+  name = "Python"
+  tag = "Python"
 
 [[filter]]
-  name = "Other"
-  tag = "Demo"
+  name = "Julia"
+  tag = "Julia"
+
+[[filter]]
+  name = "Go"
+  tag = "Go"
+
+[[filter]]
+  name = "C++"
+  tag = "Cpp"
+
+[[filter]]
+  name = "Ruby"
+  tag = "Ruby"
 
 +++
-

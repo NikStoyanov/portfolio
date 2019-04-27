@@ -3,13 +3,13 @@
 # This widget displays recent posts from `content/post/`.
 widget = "posts"  # Do not modify this line!
 active = true  # Activate this widget? true/false
-weight = 40  # Order that this section will appear.
+weight = 7  # Order that this section will appear.
 
 title = "Recent Posts"
 subtitle = ""
 
 # Number of recent posts to list.
-count = 3
+count = 5
 
 # View.
 #   1 = List
@@ -22,4 +22,3 @@ view = 2
 filter_tag = ""
 filter_category = ""
 +++
-
