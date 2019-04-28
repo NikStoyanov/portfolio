@@ -7,7 +7,7 @@ summary = "Contributing to the developing of the post-processor for the contour 
 
 tags = ["Python"]
 
-external_link = "[https://github.com/majroy/pyCM](https://github.com/majroy/pyCM)"
+external_link = "https://github.com/majroy/pyCM"
 
 [image]
   # Caption (optional)
