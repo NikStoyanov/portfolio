@@ -6,7 +6,7 @@ title = "Strajury"
 date = 2019-05-06T00:00:00
 
 # Project summary to display on homepage.
-summary = "Analyses GPS and G-force acceleration data in Go, Postgres and Redis to alleviate running injuries! Hosted and runs on Heroku: https://strajury.com/ <br /> <br /> <img alt='Website' src='https://img.shields.io/website/https/strajury.herokuapp.com.svg?down_color=lightgrey&down_message=offline&up_color=green&up_message=online'>"
+summary = "Analyses GPS and G-force acceleration data in Go, Postgres and Redis to alleviate running injuries! Hosted and runs on Heroku: https://strajury.com/ <br /> <br /> <img alt='Website' src='https://img.shields.io/uptimerobot/status/m782603730-be256bb5b63e42807f8a8274.svg'>"
 
 # Tags: can be used for filtering projects.
 # Example: `tags = ["machine-learning", "deep-learning"]`
