@@ -13,7 +13,7 @@ summary = "Analyses GPS and G-force acceleration data in Go, Postgres and Redis 
 tags = ["Go"]
 
 # Optional external URL for project (replaces project detail page).
-external_link = "https://strajury.herokuapp.com"
+external_link = "https://strajury.com"
 
 # Slides (optional).
 #   Associate this project with Markdown slides.
