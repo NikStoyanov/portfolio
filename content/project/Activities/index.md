@@ -6,7 +6,7 @@ title = "Activities"
 date = 2019-04-01T00:00:00
 
 # Project summary to display on homepage.
-summary = "Activities Website which pulls runs/swims from Strava and bundles it with gym and random entries to build an online repository. <br /> <br /> [![Build Status](https://travis-ci.org/NikStoyanov/nikstoyanov.github.io.svg?branch=master)](https://travis-ci.org/NikStoyanov/nikstoyanov.github.io) <br /> [![Depfu](https://badges.depfu.com/badges/ab4223b0ab03096dbeee8c1e01210462/overview.svg)](https://depfu.com/github/NikStoyanov/nikstoyanov.github.io?project_id=7601) <br /> [![Netlify Status](https://api.netlify.com/api/v1/badges/4c904306-1ae9-459d-b50a-f62cf3fc7c3e/deploy-status)](https://app.netlify.com/sites/gifted-benz-a6309a/deploys)"
+summary = "Activities website which pulls runs/swims from Strava and bundles them with gym and random entries to build an online repository. <br /> <br /> [![Build Status](https://travis-ci.org/NikStoyanov/nikstoyanov.github.io.svg?branch=master)](https://travis-ci.org/NikStoyanov/nikstoyanov.github.io) <br /> [![Depfu](https://badges.depfu.com/badges/ab4223b0ab03096dbeee8c1e01210462/overview.svg)](https://depfu.com/github/NikStoyanov/nikstoyanov.github.io?project_id=7601) <br /> [![Netlify Status](https://api.netlify.com/api/v1/badges/4c904306-1ae9-459d-b50a-f62cf3fc7c3e/deploy-status)](https://app.netlify.com/sites/gifted-benz-a6309a/deploys)"
 
 # Tags: can be used for filtering projects.
 # Example: `tags = ["machine-learning", "deep-learning"]`
