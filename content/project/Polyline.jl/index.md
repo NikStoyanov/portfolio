@@ -6,7 +6,7 @@ title = "Polyline.jl"
 date = 2019-04-27T00:00:00
 
 # Project summary to display on homepage.
-summary = "Implementing polyline encoding/decoding for GPS coordinated using Julia. <br /> <br /> [![Build Status](https://travis-ci.com/NikStoyanov/Polyline.jl.svg?branch=master)](https://travis-ci.com/NikStoyanov/Polyline.jl) <br /> [![Coverage Status](https://coveralls.io/repos/github/NikStoyanov/Polyline.jl/badge.svg?branch=master)](https://coveralls.io/github/NikStoyanov/Polyline.jl?branch=master)"
+summary = "Implementing polyline encoding/decoding for GPS coordinates using Julia. <br /> <br /> [![Build Status](https://travis-ci.com/NikStoyanov/Polyline.jl.svg?branch=master)](https://travis-ci.com/NikStoyanov/Polyline.jl) <br /> [![Coverage Status](https://coveralls.io/repos/github/NikStoyanov/Polyline.jl/badge.svg?branch=master)](https://coveralls.io/github/NikStoyanov/Polyline.jl?branch=master)"
 
 # Tags: can be used for filtering projects.
 # Example: `tags = ["machine-learning", "deep-learning"]`
