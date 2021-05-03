@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Python and VTK scientific visualisation | Nikola Stoyanov</title>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.55.3" />
+<meta name="description" content="My site">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/css/minimal.css">
+<link rel="canonical" href="/posts/2018-06-06-scientific-visualization/">
+<link rel="alternate" type="application/rss+xml" href="" title="Nikola Stoyanov">
+
+<header>
+  
+    <a href="/" class="title">Nikola Stoyanov</a>
+  
+  
+    <nav>
+    
+      <a href="/posts/">Posts</a>
+    
+      <a href="/about/">About</a>
+    
+    </nav>
+  
+</header>
+
+<article>
+  <header>
+    <h1>Python and VTK scientific visualisation</h1>
+    <time datetime="2018-06-06T00:00:00Z">June 06, 2018</time>
+  </header>
+  <p>CrackVis is a visualisation tool which uses <a href="https://www.vtk.org/">VTK</a> to display a point
+cloud from <a href="http://www.simulia.com/">ABAQUS</a> 2D simulations. The input is a csv file which holds
+data in the following format:</p>
+
+<table>
+<thead>
+<tr>
+<th>X</th>
+<th>Y</th>
+<th>Z1</th>
+<th>Z2</th>
+<th>...</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+</tbody>
+</table>
+
+<p>Where \(X\) and \(Y\) are the coordinates of the nodes and \(Z_n\) is the
+data to be investigated.</p>
+
+<p>The tool will plot the point cloud which represents the nodal values
+and add a scalar bar. I had to write my own parser scripts to extract
+data from an ABAQUS .odb file to post-process other simulations,
+however, I re-purposed them for this case. The code can be found in
+<a href="https://github.com/NikStoyanov/phdfunc">this repository</a>. Feel free to modify for your own cases, the use of
+the tool is independent of the data you are plotting.</p>
+
+<h2 id="objective">Objective</h2>
+
+<p>The purpose of the script is to provide a visual perspective on the
+stress distribution of structural elements which can facilitate the
+seed of cohesive elements to model crack initiation and propagation.</p>
+
+<p>This is useful to consider when we are speaking of predefined crack
+paths i.e. we do not allow arbitrary propagation.</p>
+
+<h2 id="usage">Usage</h2>
+
+<p>To use the tool you need to import the CrackVis module, provide the
+file name and set user defined properties.</p>
+
+<p>The properties are:</p>
+
+<ul>
+<li>Scaling factor: otherwise the plot will be difficult to perceive in some cases.</li>
+<li>Feature: the column of the \(Z_n\) which is under investigation.</li>
+<li>Point size.</li>
+</ul>
+
+<p>This is a trail and error approach to make the plot fit your needs.
+If there is a better ways to do this let me know ¯\_(ツ)_/¯.</p>
+
+<h2 id="example">Example</h2>
+
+<p>Lets do an example! A simulation with ABAQUS has been ran on a plate
+with the following boundary conditions:</p>
+
+<ul>
+<li>\(U_1 = U_2 = 0\) on West.</li>
+<li>\(+F_1\) on East.</li>
+<li>A quadratic temperature function was applied with 0°C on the
+boundary and -160°C in the centre.</li>
+</ul>
+
+<p>They are quite unrealistic but good enough for a test case. A
+schematic is shown below.</p>
+
+<p><figure><img src="./crackvis_schem.png" alt="png"></figure></p>
+
+<p>Lets first import the crackvis module.</p>
+
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+
+<pre><code class="language-python">from crackvis import VtkPointCloud, SetVtkWindow
+</code></pre>
+
+<p>Then we define the user variables with the file we want to plot. In
+this case we are looking at the principal stress i.e. column 7 in our
+export file with a point size of 10 and we scale the values by \(10^8\).</p>
+
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+
+<pre><code class="language-python">filename = &quot;2D_Crack_Vis_m160C_200MPa.dat&quot;
+scale = 10**8
+feature = 7
+point_size = 10
+</code></pre>
+
+<p>Finally, lets load the points in our <strong>VtkPointCloud</strong> object and the
+window using <strong>SetVtkWindow</strong>.</p>
+
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+
+<pre><code class="language-python">point_cloud = VtkPointCloud(filename, scale, feature, point_size)
+point_cloud.load_data()
+vtk_window = SetVtkWindow(point_cloud)
+</code></pre>
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[3]:</div>
+
+<p><figure><img src="./crackvis_pstress.png" alt="png"></figure></p>
+
+<p></div></p>
+
+<p>We get this sweet 3D plot of the principal stress. Notice how
+pronounced it is in the top/bottom edges of the boundary - it
+definitely makes sense since some of the nodes in those finite
+elements cannot move in x/y! This is good!</p>
+
+<p>Lets also code this for the temperature!</p>
+
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+
+<pre><code class="language-python">scale = 10**2
+feature = 3
+point_size = 10
+
+# display the temperature
+point_cloud = VtkPointCloud(filename, scale, feature, point_size)
+point_cloud.load_data()
+vtk_window = SetVtkWindow(point_cloud)
+</code></pre>
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[4]:</div>
+
+<figure>
+    <img src="crackvis_temp.png" width="100%" height="100%"/> 
+</figure>
+
+
+<p></div></p>
+
+<p>And we can see the quadratic temperature function applied in the FE calculation.</p>
+
+<h2 id="vtk-scalar-bar-widget">VTK Scalar Bar Widget</h2>
+
+<p>An important part of this project which I need for my PhD is the
+scalar bar. As every true scientist I had to add this.</p>
+
+<p>The scalar bar implementation in VTK is based on building a lookup
+table and defining the minimum and maximum values of the input. All of
+this is done in the window interactor. Luckily, I already have this
+from my point cloud class since the points themselves are in a
+different interactor then the window.</p>
+
+<p>So lets create our lookup table. Notice how the hue is set to reflect
+true engineering notation, read as red=max, blue=min :)</p>
+
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+
+<pre><code class="language-python">self.lut = vtk.vtkLookupTable()
+self.build_lut()
+
+
+def build_lut(self):
+    &quot;&quot;&quot;
+    Creates the lookup table
+    Returns:
+        - lut (vtkLookupTable): lookup table with red=max, blue=min
+    &quot;&quot;&quot;
+
+    self.lut.SetHueRange(0.667, 0)
+    self.lut.Build()
+</code></pre>
+
+<p>Then lets build the vtk mapper for the points, this will later be
+shared in the window actor where the scalar bar resides.</p>
+
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+
+<pre><code class="language-python">self.mapper = vtk.vtkPolyDataMapper()
+self.mapper.SetInputData(self.vtkPolyData)
+self.mapper.SetColorModeToDefault()
+self.mapper.SetScalarVisibility(1)
+self.mapper.SetLookupTable(self.lut)
+
+# create the actor
+self.vtkActor = vtk.vtkActor()
+self.vtkActor.SetMapper(self.mapper)
+</code></pre>
+
+<p>When the file is loaded we extract the minimum and maximum values with
+numpy and pass those to the mapper to render the colours correctly.</p>
+
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+
+<pre><code class="language-python">def set_range(self):
+    &quot;&quot;&quot;
+    Sets the scalar range in z
+    &quot;&quot;&quot;
+
+    self.mapper.SetScalarRange(self.min_data, self.max_data)
+</code></pre>
+
+<p>Finally, we need to create the scalar bar in the window. This happens
+in <strong>SetVtkWindow</strong> and is a two stage process.</p>
+
+<p>First we need to add the point cloud actor in the window
+renderer. This will transfer the mapper as mentioned above. All of it
+is achieved in the constructor when the window object is created.</p>
+
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+
+<pre><code class="language-python">renderer = vtk.vtkRenderer()
+renderer.AddActor(point_cloud.vtkActor)
+</code></pre>
+
+<p>Then, we can build the scalar bar actor and the widget. They will
+inherit the hue and the scalar range we have set in the point cloud
+mapper.</p>
+
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+
+<pre><code class="language-python">scalar_bar = vtk.vtkScalarBarActor()
+scalar_bar.SetOrientationToHorizontal()
+scalar_bar.SetLookupTable(point_cloud.lut)
+scalar_bar_widget = vtk.vtkScalarBarWidget()
+scalar_bar_widget.SetInteractor(renderWindowInteractor)
+scalar_bar_widget.SetScalarBarActor(scalar_bar)
+scalar_bar_widget.On()
+</code></pre>
+
+<p>Voilà we have a scalar bar!</p>
+
+<h2 id="full-code">Full Code</h2>
+
+<p>Lets also see how the full code works. Below is the code from my
+<a href="https://github.com/NikStoyanov/CrackVis">repository</a> and provided by <a href="https://gist-it.appspot.com/">gist-it</a>.</p>
+
+<div class="HTML">
+  <div></div>
+
+<script src="https://gist-it.appspot.com/https://github.com/NikStoyanov/CrackVis/blob/master/crackvis.py"></script>
+
+<p></div></p>
+
+<p>The code consists of two classes:</p>
+
+<ul>
+<li><strong>VtkPointCloud</strong>: builds the point cloud by reading the data file and
+adding each point. It also sets the vtk mapper for the scalar bar.</li>
+<li><strong>SetVtkWindow</strong>: builds the window, renders the content of the point
+cloud and adds the scalar bar.</li>
+</ul>
+
+<p>The reason for the split in two classes is because I wanted to handle
+the window separately and add more functionality in the
+future. Currently only point clouds are supported since it suits my
+purposes for the moment, however, I would need to eventually render
+the surface and connect some points of interest to determine the seed
+path. But this is work for another day!</p>
+
+</article>
+
+
+
+</html>

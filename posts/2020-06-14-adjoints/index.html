@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Understanding Adjoint Optimization | Nikola Stoyanov</title>
+<meta charset="utf-8">
+<meta name="description" content="My site">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/css/minimal.css">
+<link rel="canonical" href="/posts/2020-06-14-adjoints/">
+<link rel="alternate" type="application/rss+xml" href="" title="Nikola Stoyanov">
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+  </script> 
+<article>
+  <header>
+    <h1>Understanding Adjoint Optimization</h1>
+    <time datetime="2020-06-14T00:00:00Z">June 14, 2020</time>
+  </header>
+
+<header>
+  
+    <a href="/" class="title">Nikola Stoyanov</a>
+  
+  
+    <nav>
+    
+      <a href="/posts/">Posts</a>
+    
+      <a href="/about/">About</a>
+    
+    </nav>
+  
+</header>
+
+<h1 id="understanding-adjoints">Understanding adjoints</h1>
+
+<p>Writing up my PhD is a pain mainly because of the detailed explanations that need to be provided. A technique I used throughout my project is to solve parameter optimization problems using the adjoint method. I learned the technique and used it, but never really <em>got</em> it until reading an amazing paper. This post represents my notes and Julia implementation of the work detailed in <a href="https://math.mit.edu/~stevenj/18.336/adjoint.pdf">https://math.mit.edu/~stevenj/18.336/adjoint.pdf</a> by Steven G. Johnson which is by far the best description I have read on Adjoint methods. I am really grateful that I typed up these notes some time ago which makes my writing life easier... I hope they help someone to implement similar problems in Julia.</p>
+
+<h2 id="problem">Problem</h2>
+
+<p>This work implements the solution to the optimization problem for the Schrödinger eigenequation described in <a href="https://math.mit.edu/~stevenj/18.336/adjoint.pdf">https://math.mit.edu/~stevenj/18.336/adjoint.pdf</a> by Steven G. Johnson.</p>
+
+<h2 id="boilerplate">Boilerplate</h2>
+
+<p>Let's setup the Julia environment. Here I will use the <a href="https://github.com/JuliaNLSolvers/Optim.jl">Optim.jl</a> to solve the optimization problem and <a href="https://github.com/JuliaMath/IterativeSolvers.jl">IterativeSolvers.jl</a> which provides the conjugate gradient method to solve the matrix equations.</p>
+
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+
+<pre><code class="language-julia">using Pkg; Pkg.activate(&quot;.&quot;)
+</code></pre>
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[1]:</div>
+
+<pre><code>Activating environment at `~/git/Personal_Website/content/post/2020-06-14-adjoints/Project.toml`
+</code></pre>
+
+<p></div></p>
+
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+
+<pre><code class="language-julia">using Optim, Plots, LineSearches, SparseArrays, LinearAlgebra, IterativeSolvers
+</code></pre>
+
+<h2 id="the-adjoint-method">The Adjoint Method</h2>
+
+<p>I recommend you read Steven G. Johnson's <a href="https://math.mit.edu/~stevenj/18.336/adjoint.pdf">paper</a>. The descriptions here are taken from that paper and summarized.</p>
+
+<p>Given a set of equations M parametrized by a parameter P we optimize a function $g(x, p)$ on some space $x$. For optimizations we need the gradient $\frac{dg}{dp}$. The adjoint method rewrites the equation such that the we get a constant cost, it does not depend on the size of $P$ which is great if the dimension of the parameter space is large.</p>
+
+<p>The change in the equation is shown next. Given \(Ax=b\) with $$A$$ and $b$ parametrized by $P$:</p>
+
+<p><span  class="math">\[
+\begin{equation}
+\frac{dg}{dp} = g_p + g_x x_p
+\end{equation}
+\]</span></p>
+
+<p>Where $x$ is $MxM$ with $g_p$ being a Jacobian of size $1xP$, $g_x$ being a Jacobian on size $1xM$, $x_p$ of size $MxP$. The difficulty comes from plugging in $x_p$.</p>
+
+<p>To get $x_p$ we differentiate $Ax=b$ by $p_i$ for each parameter to get:</p>
+
+<p><span  class="math">\[
+\begin{equation}
+x_{pi} = A^{-1} (b_{pi} - A_{pi}x)
+\end{equation}
+\]</span></p>
+
+<p>Plugging Equation 2 in Equation 1 we get:</p>
+
+<p><span  class="math">\[
+\begin{equation}
+g_x x_p = g_x A^{-1} (b_p - A_p x) = [g_x A^{-1}] (b_p - A_p x)
+\end {equation}
+\]</span></p>
+
+<p>With the terms $g_x A^{-1}$ of size $1xM$ and $b_p - A_p x$ of size $MxP$. The difficulty being is that the computational cost is $\mathcal{O}(M^2P)$.</p>
+
+<p>To make the problem easier we can rearrange the equation. If we multiply by $\lambda^T = g_x A^{-1}$ and from Equation 1 and Equation 2 we get:</p>
+
+<p><span  class="math">\[
+\begin{equation}
+\frac{dg}{dp} = g_p - \lambda^T (A_p x - b_p)
+\end{equation}
+\]</span></p>
+
+<p>Where the multiplication now gives a tight bound $\Theta(MP)$.</p>
+
+<h2 id="eigenequation">Eigenequation</h2>
+
+<p>The equation for the problem in the paper is an eigenequation so we need to also follow the section which derives this case. Equations of this type are given by:</p>
+
+<p><span  class="math">\[
+\begin{equation}
+Ax = \alpha x
+\end{equation}
+\]</span></p>
+
+<p>In block form we get:</p>
+
+<p><span  class="math">\[
+\begin{equation}
+\hat{x} = \begin{bmatrix} x \\ \alpha \end{bmatrix}
+\end{equation}
+\]</span></p>
+
+<p>And for $f = Ax - \alpha x$:</p>
+
+<p><span  class="math">\[
+\begin{equation}
+\hat{f} = \begin{bmatrix} f \\ x^T x - 1 \end{bmatrix}
+\end{equation}
+\]</span></p>
+
+<p>Using the same substitution for $\lambda$ we get:</p>
+
+<p><span  class="math">\[
+\begin{equation}
+\hat{\lambda} = \begin{bmatrix} \lambda \\ \beta \end{bmatrix}
+\end{equation}
+\]</span></p>
+
+<p>Putting this together:</p>
+
+<p><span  class="math">\[
+\begin{equation}
+(A - \alpha) \lambda = g_x^T - 2\beta x
+\end{equation}
+\]</span></p>
+
+<p><span  class="math">\[
+\begin{equation}
+-x^T \lambda = g_a
+\end{equation}
+\]</span></p>
+
+<h2 id="schrödinger-eigenequation">Schrödinger eigenequation</h2>
+
+<p>The Schrödinger eigenequation is given by:</p>
+
+<p><span  class="math">\[
+\begin{equation}
+\left(-\frac{d^2}{dx^2} + V(x)\right) \psi(x) = E\psi(x)
+\end{equation}
+\]</span></p>
+
+<p>With periodic boundary conditions $\psi(x+2) = \psi(x)$ over a domain $x \in $.</p>
+
+<p>In direct solving we are given $V(x)$ and solve for $\psi$ and $E$, in parameter optimization (inverse) we are looking for $V(x)$ that minimizes some cost. In this case the cost is:</p>
+
+<p><span  class="math">\[
+\begin{equation}
+g = \int_{-1}^{1} |\psi(x) - \psi_0 (x)|^2 dx
+\end{equation}
+\]</span></p>
+
+<p>To solve the optimization problem we will:</p>
+
+<ul>
+<li>use finite difference method with central differencing to discretise the domain</li>
+<li>normalize $\psi$ to $\psi \psi^T = 1$</li>
+<li>project to $P = 1 - \psi \psi^T$</li>
+<li>solve the adjoint $\frac{dg}{dV} = \lambda \psi$</li>
+<li>solve $Ax = b$ for the smallest eigenvalue using Arnoldi iterations</li>
+<li>optimize $g(\psi, V) = (\psi - \psi_0)^T (\psi - \psi_0) \Delta x$ using the Conjugate Gradient method</li>
+<li>update the prediction $V(x)$ using the least-squares error against precalculated target data</li>
+</ul>
+
+<p>In other cases the precalculated target data can come from experimental measurements, recorded data etc.</p>
+
+<h2 id="implementation">Implementation</h2>
+
+<p>We setup the domain and the finite difference discretisation.</p>
+
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+
+<pre><code class="language-julia">const m = 0.02
+const x = [i for i in -1:m :1]
+const N = length(x)
+const dx = x[2] - x[1]
+</code></pre>
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[3]:</div>
+
+<pre><code>0.020000000000000018
+</code></pre>
+
+<p></div></p>
+
+<p>We pick a function to generate the target data. This will later be used to compute the cost function and in inverse problems this is not known i.e. we are trying to backcalculate it. In my case such data comes from physical tests using thermocouples (very different than the example here but it can be solved with the same approach).</p>
+
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+
+<pre><code class="language-julia"># Target solution, normalize and pick sign.
+Ψ0 = 1.0 .+ sin.(π .* x .+ cos.(3 * π .* x))
+Ψ0 = Ψ0 / sqrt(transpose(Ψ0) * Ψ0)
+if(sum(Ψ0) &lt; 0)
+    Ψ0 = -Ψ0
+end
+</code></pre>
+
+<p>In real problems we might be able to set prior knowledge about the problem but here we are just going to kick-start from an initial guess at $0$.</p>
+
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+
+<pre><code class="language-julia">const V0 = [0.0 for i in -1:m :1];
+</code></pre>
+
+<p>Discretise the space using center-difference scheme and set the periodic boundary conditions.</p>
+
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+
+<pre><code class="language-julia">Mesh = spdiagm(-1 =&gt; [1.0 for i in 1:N-1],
+               0 =&gt; [2.0 for i in 1:N],
+               1 =&gt; [1.0 for i in 1:N-1])
+
+# Periodic boundary conditions.
+Mesh[1, N] = 1.0
+Mesh[N, 1] = 1.0
+
+# Build mesh.
+Mesh = -Mesh / dx^2;
+</code></pre>
+
+<p>Next we need to setup the optimization problem. For this we need to pass the parameters which we setup above and create a data structure to store the current calculation state.</p>
+
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+
+<pre><code class="language-julia"># Build constants.
+const p = [N, dx, Ψ0, Mesh]
+
+mutable struct Schrodinger{T1, T2, T3}
+    A::T1
+    E::T2
+    Ψ::T3
+end
+
+schr = Schrodinger(Mesh, 0.0, zeros(N));
+</code></pre>
+
+<p>The finite difference disretisation with an initial guess allows us to solve $Ax=b$ using Arnoldi iterations (Conjugate gradient) and computing the cost function as the least squares error between the generated target data and predictions form the the current solution state.</p>
+
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+
+<pre><code class="language-julia">function schrodinger_fd(V, schr, p)
+    N, _, Ψ0, Mesh = p
+
+    A = Mesh + Diagonal(V)
+
+    # Smallest values.
+    E = eigvals(Matrix(A))[1]
+    Ψ = eigvecs(Matrix(A))[:, 1]
+
+    # Pick sign.
+    if(sum(Ψ) &lt; 0)
+        Ψ = -Ψ
+    end
+
+    schr.A = A
+    schr.E = E
+    schr.Ψ = Ψ
+
+    # Least-squares error.
+    err = 0.0
+    for i in 1:N
+        err += (Ψ[i] - Ψ0[i])^2
+    end
+
+    return err
+end
+</code></pre>
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[8]:</div>
+
+<pre><code>schrodinger_fd (generic function with 1 method)
+</code></pre>
+
+<p></div></p>
+
+<p>Finally, we add the derived equations for the adjoint and pass the solution state to calculate the gradient. The adjoint equations are solved with the Conjugate gradient method.</p>
+
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+
+<pre><code class="language-julia">function schrodinger_fd_adj(gp, V, schr, p)
+    N, dx, Ψ0, _ = p
+
+    A = schr.A
+    E = schr.E
+    Ψ = schr.Ψ
+
+    gΨ = Ψ - Ψ0
+    g = transpose(gΨ) * gΨ * dx
+    gΨ = gΨ * 2 * dx
+
+    P(Ψx) = Ψx - Ψ * (transpose(Ψ) * Ψx)
+    λ = cg(A - Diagonal([E for i in 1:N]), P(gΨ))
+    λ = P(λ)
+
+    copyto!(gp, -real(conj(λ) .* Ψ))
+end
+</code></pre>
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[9]:</div>
+
+<pre><code>schrodinger_fd_adj (generic function with 1 method)
+</code></pre>
+
+<p></div></p>
+
+<p>We can now fill in the initial state with the guess for $V_0$.</p>
+
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+
+<pre><code class="language-julia">schrodinger_fd(V0, schr, p)
+</code></pre>
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[10]:</div>
+
+<pre><code>0.36358289201172456
+</code></pre>
+
+<p></div></p>
+
+<p>After the initial state we can pass with to <a href="https://github.com/JuliaNLSolvers/Optim.jl">Optim.jl</a> and optimize using the Conjugate gradient method and the <a href="https://github.com/JuliaNLSolvers/LineSearches.jl">Nocedal and Wright line search</a>.</p>
+
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+
+<pre><code class="language-julia">res= optimize(V0 -&gt; schrodinger_fd(V0, schr, p),
+              (gp, V) -&gt; schrodinger_fd_adj(gp, V, schr, p),
+              V0,
+              ConjugateGradient(;alphaguess = LineSearches.InitialStatic(),
+                                linesearch = LineSearches.StrongWolfe()),
+              Optim.Options(iterations = 1500))
+
+show(res)
+V = Optim.minimizer(res)
+</code></pre>
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[11]:</div>
+
+<pre><code> * Status: failure (reached maximum number of iterations)
+
+ * Candidate solution
+    Minimizer: [-6.97e+01, -6.31e+01, -5.21e+01,  ...]
+    Minimum:   1.073967e-02
+
+ * Found with
+    Algorithm:     Conjugate Gradient
+    Initial Point: [0.00e+00, 0.00e+00, 0.00e+00,  ...]
+
+ * Convergence measures
+    |x - x'|               = 2.25e-02 ≰ 0.0e+00
+    |x - x'|/|x'|          = 2.76e-04 ≰ 0.0e+00
+    |f(x) - f(x')|         = 5.17e-06 ≰ 0.0e+00
+    |f(x) - f(x')|/|f(x')| = 4.81e-04 ≰ 0.0e+00
+    |g(x)|                 = 2.50e-07 ≰ 1.0e-08
+
+ * Work counters
+    Seconds run:   205  (vs limit Inf)
+    Iterations:    1500
+    f(x) calls:    25492
+    ∇f(x) calls:   25492
+</code></pre>
+
+<p></div></p>
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[11]:</div>
+
+<pre><code>101-element Array{Float64,1}:
+ -69.7179927132526  
+ -63.069608186066425
+ -52.087451574006884
+ -37.36573473180763 
+ -20.180400235224578
+  -2.229225733813316
+  14.749615511053337
+  29.331853859440123
+  40.62554608422707 
+  48.3225249611126  
+  52.61571536510694 
+  54.042947983512384
+  53.31503924672539 
+   ⋮                
+  17.178647984621353
+   8.021381994966156
+  -2.573762022324184
+ -14.023136038593602
+ -25.664072903254834
+ -36.846554029251884
+ -47.03051365926664 
+ -55.83742898698404 
+ -63.019981543247575
+ -68.35860212436283 
+ -71.54666184631233 
+ -72.15224515470479 
+</code></pre>
+
+<p></div></p>
+
+<p>After the convergence criteria are met we can get the final state.</p>
+
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+
+<pre><code class="language-julia"># Calculate the Ψ for the optimized V.
+schrodinger_fd(V, schr, p)
+Ψ = schr.Ψ
+</code></pre>
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[12]:</div>
+
+<pre><code>101-element Array{Float64,1}:
+ 0.14833164726134337 
+ 0.13919394825641024 
+ 0.1278699952817301  
+ 0.11509936367379768 
+ 0.10170432021101757 
+ 0.0884566618539783  
+ 0.07597235110988376 
+ 0.06465962208332779 
+ 0.05472117218785397 
+ 0.04619297069858297 
+ 0.03899745133110734 
+ 0.032993990421552606
+ 0.028017912623404584
+ ⋮                   
+ 0.09614588450255365 
+ 0.10240636155599434 
+ 0.10997045784342774 
+ 0.11846840215967322 
+ 0.1274298017992534  
+ 0.13629635337111087 
+ 0.1444518047974951  
+ 0.15126517003159562 
+ 0.15614027501154157 
+ 0.1585660575136774  
+ 0.15816585545769815 
+ 0.1547451044185629  
+</code></pre>
+
+<p></div></p>
+
+<p>Finally, we create a plot and see how well we did.</p>
+
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+
+<pre><code class="language-julia">scatter(x, Ψ, label = &quot;\\Psi_i&quot;,
+        markersize = 3,
+        markerstrokecolor = :blue,
+        markercolor = :white)
+
+plot!(x, Ψ0, label = &quot;\\Psi_0&quot;,
+      color = :red)
+
+plot!(x, V / 1000, label = &quot;V/1000&quot;,
+      linestyle = :dash,
+      color = :black)
+
+plot!(xlims = (-1, 1),
+      xticks = -1:0.2:1,
+      ylims = (-0.15, 0.2),
+      yticks = -0.15:0.05:0.2,
+      grid = false,
+      legend = :bottomleft,
+      fmt = :svg,
+      framestyle = :box)
+</code></pre>
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[13]:</div>
+
+<p><figure><img src="./adjoints_64_0.svg" alt="svg"></figure></p>
+
+<p></div></p>
+
+<p>That's pretty good, considering it only took two-three minutes on my Thinkpad laptop to optimize 100 dimensional case and the function is not trivial!</p>
+
+</article>
+
+
+
+</html>
