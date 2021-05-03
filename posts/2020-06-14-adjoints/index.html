@@ -15,14 +15,9 @@
   MathJax.Hub.Config({
     TeX: { equationNumbers: { autoNumber: "AMS" } }
   });
-  </script> 
-<article>
-  <header>
-    <h1>Understanding Adjoint Optimization</h1>
-    <time datetime="2020-06-14T00:00:00Z">June 14, 2020</time>
-  </header>
+  </script>
 
-<header>
+  <header>
   
     <a href="/" class="title">Nikola Stoyanov</a>
   
@@ -36,6 +31,12 @@
     </nav>
   
 </header>
+
+<article>
+  <header>
+    <h1>Understanding Adjoint Optimization</h1>
+    <time datetime="2020-06-14T00:00:00Z">June 14, 2020</time>
+  </header>
 
 <h1 id="understanding-adjoints">Understanding adjoints</h1>
 
@@ -72,9 +73,9 @@
 
 <p>I recommend you read Steven G. Johnson's <a href="https://math.mit.edu/~stevenj/18.336/adjoint.pdf">paper</a>. The descriptions here are taken from that paper and summarized.</p>
 
-<p>Given a set of equations M parametrized by a parameter P we optimize a function $g(x, p)$ on some space $x$. For optimizations we need the gradient $\frac{dg}{dp}$. The adjoint method rewrites the equation such that the we get a constant cost, it does not depend on the size of $P$ which is great if the dimension of the parameter space is large.</p>
+<p>Given a set of equations M parametrized by a parameter P we optimize a function \(g(x, p)\) on some space \(x\). For optimizations we need the gradient \(\frac{dg}{dp}\). The adjoint method rewrites the equation such that the we get a constant cost, it does not depend on the size of \(P\) which is great if the dimension of the parameter space is large.</p>
 
-<p>The change in the equation is shown next. Given \(Ax=b\) with $$A$$ and $b$ parametrized by $P$:</p>
+<p>The change in the equation is shown next. Given \(Ax=b\) with \(A\) and \(b\) parametrized by \(P\):</p>
 
 <p><span  class="math">\[
 \begin{equation}
@@ -82,9 +83,9 @@
 \end{equation}
 \]</span></p>
 
-<p>Where $x$ is $MxM$ with $g_p$ being a Jacobian of size $1xP$, $g_x$ being a Jacobian on size $1xM$, $x_p$ of size $MxP$. The difficulty comes from plugging in $x_p$.</p>
+<p>Where \(x\) is \(MxM\) with \(g_p\) being a Jacobian of size \(1xP\), \(g_x\) being a Jacobian on size \(1xM\), \(x_p\) of size \(MxP\). The difficulty comes from plugging in \(x_p\).</p>
 
-<p>To get $x_p$ we differentiate $Ax=b$ by $p_i$ for each parameter to get:</p>
+<p>To get \(x_p\) we differentiate \(Ax=b\) by \(p_i\) for each parameter to get:</p>
 
 <p><span  class="math">\[
 \begin{equation}
@@ -100,9 +101,9 @@ g_x x_p = g_x A^{-1} (b_p - A_p x) = [g_x A^{-1}] (b_p - A_p x)
 \end {equation}
 \]</span></p>
 
-<p>With the terms $g_x A^{-1}$ of size $1xM$ and $b_p - A_p x$ of size $MxP$. The difficulty being is that the computational cost is $\mathcal{O}(M^2P)$.</p>
+<p>With the terms \(g_x A^{-1}\) of size \(1xM\) and \(b_p - A_p x\) of size \(MxP\). The difficulty being is that the computational cost is \(\mathcal{O}(M^2P)\).</p>
 
-<p>To make the problem easier we can rearrange the equation. If we multiply by $\lambda^T = g_x A^{-1}$ and from Equation 1 and Equation 2 we get:</p>
+<p>To make the problem easier we can rearrange the equation. If we multiply by \(\lambda^T = g_x A^{-1}\) and from Equation 1 and Equation 2 we get:</p>
 
 <p><span  class="math">\[
 \begin{equation}
@@ -110,7 +111,7 @@ g_x x_p = g_x A^{-1} (b_p - A_p x) = [g_x A^{-1}] (b_p - A_p x)
 \end{equation}
 \]</span></p>
 
-<p>Where the multiplication now gives a tight bound $\Theta(MP)$.</p>
+<p>Where the multiplication now gives a tight bound \(\Theta(MP)\).</p>
 
 <h2 id="eigenequation">Eigenequation</h2>
 
@@ -130,7 +131,7 @@ Ax = \alpha x
 \end{equation}
 \]</span></p>
 
-<p>And for $f = Ax - \alpha x$:</p>
+<p>And for \(f = Ax - \alpha x\):</p>
 
 <p><span  class="math">\[
 \begin{equation}
@@ -138,7 +139,7 @@ Ax = \alpha x
 \end{equation}
 \]</span></p>
 
-<p>Using the same substitution for $\lambda$ we get:</p>
+<p>Using the same substitution for \(\lambda\) we get:</p>
 
 <p><span  class="math">\[
 \begin{equation}
@@ -170,9 +171,9 @@ Ax = \alpha x
 \end{equation}
 \]</span></p>
 
-<p>With periodic boundary conditions $\psi(x+2) = \psi(x)$ over a domain $x \in $.</p>
+<p>With periodic boundary conditions \(\psi(x+2) = \psi(x)\) over a domain \(x \in \).</p>
 
-<p>In direct solving we are given $V(x)$ and solve for $\psi$ and $E$, in parameter optimization (inverse) we are looking for $V(x)$ that minimizes some cost. In this case the cost is:</p>
+<p>In direct solving we are given \(V(x)\) and solve for \(\psi\) and \(E\), in parameter optimization (inverse) we are looking for \(V(x)\) that minimizes some cost. In this case the cost is:</p>
 
 <p><span  class="math">\[
 \begin{equation}
@@ -184,12 +185,12 @@ g = \int_{-1}^{1} |\psi(x) - \psi_0 (x)|^2 dx
 
 <ul>
 <li>use finite difference method with central differencing to discretise the domain</li>
-<li>normalize $\psi$ to $\psi \psi^T = 1$</li>
-<li>project to $P = 1 - \psi \psi^T$</li>
-<li>solve the adjoint $\frac{dg}{dV} = \lambda \psi$</li>
-<li>solve $Ax = b$ for the smallest eigenvalue using Arnoldi iterations</li>
-<li>optimize $g(\psi, V) = (\psi - \psi_0)^T (\psi - \psi_0) \Delta x$ using the Conjugate Gradient method</li>
-<li>update the prediction $V(x)$ using the least-squares error against precalculated target data</li>
+<li>normalize \(\psi\) to \(\psi \psi^T = 1\)</li>
+<li>project to \(P = 1 - \psi \psi^T\)</li>
+<li>solve the adjoint \(\frac{dg}{dV} = \lambda \psi\)</li>
+<li>solve \(Ax = b\) for the smallest eigenvalue using Arnoldi iterations</li>
+<li>optimize \(g(\psi, V) = (\psi - \psi_0)^T (\psi - \psi_0) \Delta x\) using the Conjugate Gradient method</li>
+<li>update the prediction \(V(x)\) using the least-squares error against precalculated target data</li>
 </ul>
 
 <p>In other cases the precalculated target data can come from experimental measurements, recorded data etc.</p>
@@ -227,7 +228,7 @@ if(sum(Ψ0) &lt; 0)
 end
 </code></pre>
 
-<p>In real problems we might be able to set prior knowledge about the problem but here we are just going to kick-start from an initial guess at $0$.</p>
+<p>In real problems we might be able to set prior knowledge about the problem but here we are just going to kick-start from an initial guess at \(0\).</p>
 
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 
@@ -266,7 +267,7 @@ end
 schr = Schrodinger(Mesh, 0.0, zeros(N));
 </code></pre>
 
-<p>The finite difference disretisation with an initial guess allows us to solve $Ax=b$ using Arnoldi iterations (Conjugate gradient) and computing the cost function as the least squares error between the generated target data and predictions form the the current solution state.</p>
+<p>The finite difference disretisation with an initial guess allows us to solve \(Ax=b\) using Arnoldi iterations (Conjugate gradient) and computing the cost function as the least squares error between the generated target data and predictions form the the current solution state.</p>
 
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 
@@ -339,7 +340,7 @@ end
 
 <p></div></p>
 
-<p>We can now fill in the initial state with the guess for $V_0$.</p>
+<p>We can now fill in the initial state with the guess for \(V_0\).</p>
 
 <div class="prompt input_prompt">In&nbsp;[10]:</div>
 

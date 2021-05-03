@@ -2,12 +2,20 @@
 <html lang="en">
 <title>Numerical optimization using the Newton conjugate gradient method | Nikola Stoyanov</title>
 <meta charset="utf-8">
-<meta name="generator" content="Hugo 0.55.3" />
 <meta name="description" content="My site">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/css/minimal.css">
 <link rel="canonical" href="/posts/2019-04-14-numerical-optimizations/">
 <link rel="alternate" type="application/rss+xml" href="" title="Nikola Stoyanov">
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+  </script>
 
 <header>
   
@@ -85,7 +93,7 @@ f(x) = x^2
 x_{i+1} = x_i - \alpha \nabla f(x_i)
 \end{equation}</p>
 
-<p>Where $\nabla = \frac{df}{dx}$ represents the gradient in one dimension and is also known as the Jacobian in multiple dimensions. The gradient descent algorithm can then be written.</p>
+<p>Where \(\nabla = \frac{df}{dx}\) represents the gradient in one dimension and is also known as the Jacobian in multiple dimensions. The gradient descent algorithm can then be written.</p>
 
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 
@@ -102,8 +110,8 @@ x_{i+1} = x_i - \alpha \nabla f(x_i)
 </code></pre>
 
 <p>Lets explore a solution of our convex function which has a minima at
-$(0,0)$. The optimization is performed for a
-total to 10 steps and a step size of $\alpha = 0.1$.</p>
+\((0,0)\). The optimization is performed for a
+total to 10 steps and a step size of \(\alpha = 0.1\).</p>
 
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 
@@ -136,7 +144,7 @@ plt.show()
 <p>From the figure it is clear that when the gradient was large
 (i.e. step 1-2) the jump was also large. As the gradient decreases
 (i.e. step &gt; 4) the jumps also decrease. This is straightforward from
-our formulation. But what would happen if we chose a different step , say $\alpha = 0.7$, as we could if we first attempt to solve a complex problem?</p>
+our formulation. But what would happen if we chose a different step , say \(\alpha = 0.7\), as we could if we first attempt to solve a complex problem?</p>
 
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 
@@ -184,23 +192,23 @@ f(x) = (x_1^2 + x_2 - 11)^2 + (x_1 + x_2^2 - 7)^2
     return a*a + b*b
 </code></pre>
 
-<p>This function is typically used to test numerical optimization codes. Here we implement the Newton conjugate gradient method to solve it. The pure Newton method is given by solving the $n \times n$ symmetric linear system given in Equation 4. The method needs the first two derivatives of the function: the Jacobian and the Hessian.</p>
+<p>This function is typically used to test numerical optimization codes. Here we implement the Newton conjugate gradient method to solve it. The pure Newton method is given by solving the \(n \times n\) symmetric linear system given in Equation 4. The method needs the first two derivatives of the function: the Jacobian and the Hessian.</p>
 
 <p>\begin{equation}
 \nabla^2 f(x_k) p_k^N = -\nabla f(x_k)
 \end{equation}</p>
 
-<p>Here $\nabla^2$ is known as the Hessian and $p_k^N$ is the search direction. The problem here is that the Hessian might not always be positive definite and as a result the search direction may not always lead to descent.</p>
+<p>Here \(\nabla^2\) is known as the Hessian and \(p_k^N\) is the search direction. The problem here is that the Hessian might not always be positive definite and as a result the search direction may not always lead to descent.</p>
 
 <p>In this post I will focus on the implementation in <a href="https://github.com/scipy/scipy/blob/54e1727a603f7698957f43ea2cd6236fe2530615/scipy/optimize/optimize.py#L1504">scipy@54e1727a#L1504</a> which uses the so called <em>truncated Netwon method</em>.</p>
 
-<p>We first compute the search direction $p_k^N$ by applying the Conjugate Gradient method to Equation 4 and try to satisfy the termination criteria in Equation 5.</p>
+<p>We first compute the search direction \(p_k^N\) by applying the Conjugate Gradient method to Equation 4 and try to satisfy the termination criteria in Equation 5.</p>
 
 <p>\begin{equation}
 || r_k \vert \vert \leq \eta_k || \nabla f(x_k) ||
 \end{equation}</p>
 
-<p>Where $r_k$ is the residual at step $k$ and $\eta_k$ is chosen to obtain superlinear or quadratic convergence. In SciPy the value is set to obtain superlinear convergence as given in Equation 6.</p>
+<p>Where \(r_k\) is the residual at step \(k\) and \(\eta_k\) is chosen to obtain superlinear or quadratic convergence. In SciPy the value is set to obtain superlinear convergence as given in Equation 6.</p>
 
 <p>\begin{equation}
 \eta_k = min \left( 0.5, \sqrt{ || \nabla f(x_k) || } \right)
@@ -208,19 +216,19 @@ f(x) = (x_1^2 + x_2 - 11)^2 + (x_1 + x_2^2 - 7)^2
 
 <p>The curvature also needs to be continuously checked since as mentioned above the Hessian might not be positive definite and the Conjugate Gradient method would not work. In this case Scipy defaults to the steepest descent method.</p>
 
-<p>Finally, the step $\alpha_k$ needs to be chosen in order to update Equation 7 for the current iteration.</p>
+<p>Finally, the step \(\alpha_k\) needs to be chosen in order to update Equation 7 for the current iteration.</p>
 
 <p>\begin{equation}
 x_{k+1} = x_k + \alpha_k p_k
 \end{equation}</p>
 
-<p>$\alpha_k$ is chosen to satisfy the Wolfe condition using a line search method from the Minpack library. The Wolfe condition itself is given as a requirement that $\alpha_k$ should give a sufficient decrease of the objective function. This is expresed in Equation 8 for a constant $c_1$.</p>
+<p>\(\alpha_k\) is chosen to satisfy the Wolfe condition using a line search method from the Minpack library. The Wolfe condition itself is given as a requirement that \(\alpha_k\) should give a sufficient decrease of the objective function. This is expresed in Equation 8 for a constant \(c_1\).</p>
 
 <p>\begin{equation}
 f(x_k + \alpha_k p_k) \leq f(x_k) + c_1 \alpha_k \nabla f_k^T p_k
 \end{equation}</p>
 
-<p>A further rule to remove very small steps is also used which takes into account the curvature in Equation 9 for a constant $c_2$.</p>
+<p>A further rule to remove very small steps is also used which takes into account the curvature in Equation 9 for a constant \(c_2\).</p>
 
 <p>\begin{equation}
 \nabla f (x_k + \alpha_k p_k)^T  p_k \geq c_2 \nabla f_k^T p_k
@@ -233,7 +241,7 @@ f(x_k + \alpha_k p_k) \leq f(x_k) + c_1 \alpha_k \nabla f_k^T p_k
 <pre><code class="language-python">from scipy import optimize
 </code></pre>
 
-<p>A useful feature of the Newton conjugate gradient method is that it does not explicitly require the Hessian. This means that we can supply only the matrix-vector product of the form given in Equation 10 for a given vector $p$.</p>
+<p>A useful feature of the Newton conjugate gradient method is that it does not explicitly require the Hessian. This means that we can supply only the matrix-vector product of the form given in Equation 10 for a given vector \(p\).</p>
 
 <p>\begin{equation}
 \nabla^2 f(x_k)p
@@ -304,7 +312,7 @@ grad_x(1., 1.)
     return sol
 </code></pre>
 
-<p>To visualize the results we need to interpolate between the calculated points. Matplotlib takes care of that and leaves us the choice of resolution. I have found that a $0.01 \times 0.01$ grid displays well.</p>
+<p>To visualize the results we need to interpolate between the calculated points. Matplotlib takes care of that and leaves us the choice of resolution. I have found that a \(0.01 \times 0.01\) grid displays well.</p>
 
 <div class="prompt input_prompt">In&nbsp;[13]:</div>
 

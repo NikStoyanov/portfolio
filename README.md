@@ -48,9 +48,9 @@ Which makes is looks like:
 ![Jupyter history export](img/img1.png)
 
 ## Rant
-<rant>
-Backward compatibility is important to me. This blog used to be built with Hugo because I believed it will be honored. After dropping [mmark](https://github.com/gohugoio/hugo/issues/7022) support I have adopted HTML because it is timeless with the only moving part being pandoc. If pandoc breaks backward compatibility I will switch to writing the `<p>...</p>` myself.
-</rant>
+```<rant>```
+Backward compatibility is important to me. This blog used to be built with Hugo because I believed it will be honored. After dropping [mmark](https://github.com/gohugoio/hugo/issues/7022) support I have adopted HTML because it is timeless with the only moving part being pandoc. If pandoc breaks backward compatibility I will switch to writing the ```<p>...</p>``` myself.
+```</rant>```
 
 ## Theme
 I use the [contrast-hugo](https://themes.gohugo.io/contrast-hugo/) theme because it is simple.
