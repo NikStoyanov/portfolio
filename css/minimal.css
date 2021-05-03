@@ -230,3 +230,16 @@ body > footer {
 .input_prompt {
 	color: #a00;
 }
+
+.social {
+  text-align: right;
+}
+
+.social a {
+  text-decoration: none;
+}
+
+.icon {
+  width: 25px;
+  margin-left: 20px;
+}
