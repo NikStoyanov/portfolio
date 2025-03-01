@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="http://localhost:1313/images/favicon.png" />
+<title>test | Nikola Stoyanov</title>
+<meta name="title" content="test" />
+<meta name="description" content="CrackVis is a visualisation tool which uses VTK to display a point cloud from ABAQUS 2D simulations. The input is a csv file which holds data in the following format:
+X Y Z1 Z2 &hellip; &hellip; &hellip; &hellip; &hellip; &hellip; Where \(X\) and \(Y\) are the coordinates of the nodes and \(Z_n\) is the data to be investigated.
+The tool will plot the point cloud which represents the nodal values and add a scalar bar." />
+<meta name="keywords" content="" />
+
+
+<meta property="og:url" content="http://localhost:1313/test/">
+  <meta property="og:site_name" content="Nikola Stoyanov">
+  <meta property="og:title" content="test">
+  <meta property="og:description" content="CrackVis is a visualisation tool which uses VTK to display a point cloud from ABAQUS 2D simulations. The input is a csv file which holds data in the following format:
+X Y Z1 Z2 … … … … … … Where \(X\) and \(Y\) are the coordinates of the nodes and \(Z_n\) is the data to be investigated.
+The tool will plot the point cloud which represents the nodal values and add a scalar bar.">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2024-09-01T21:04:01+01:00">
+    <meta property="article:modified_time" content="2024-09-01T21:04:01+01:00">
+    <meta property="og:image" content="http://localhost:1313/images/share.png">
+
+
+
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/images/share.png">
+  <meta name="twitter:title" content="test">
+  <meta name="twitter:description" content="CrackVis is a visualisation tool which uses VTK to display a point cloud from ABAQUS 2D simulations. The input is a csv file which holds data in the following format:
+X Y Z1 Z2 … … … … … … Where \(X\) and \(Y\) are the coordinates of the nodes and \(Z_n\) is the data to be investigated.
+The tool will plot the point cloud which represents the nodal values and add a scalar bar.">
+
+
+
+
+  <meta itemprop="name" content="test">
+  <meta itemprop="description" content="CrackVis is a visualisation tool which uses VTK to display a point cloud from ABAQUS 2D simulations. The input is a csv file which holds data in the following format:
+X Y Z1 Z2 … … … … … … Where \(X\) and \(Y\) are the coordinates of the nodes and \(Z_n\) is the data to be investigated.
+The tool will plot the point cloud which represents the nodal values and add a scalar bar.">
+  <meta itemprop="datePublished" content="2024-09-01T21:04:01+01:00">
+  <meta itemprop="dateModified" content="2024-09-01T21:04:01+01:00">
+  <meta itemprop="wordCount" content="874">
+  <meta itemprop="image" content="http://localhost:1313/images/share.png">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: #fff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: #222;
+  }
+
+  a {
+    color: #3273dc;
+     
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    background-color: #f2f2f2;
+  }
+
+  pre code {
+    color: #222;
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 14px;
+    overflow-x: auto;
+  }
+
+  div.highlight pre {
+    background-color: initial;
+    color: initial;
+  }
+
+  div.highlight code {
+    background-color: unset;
+    color: unset;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: #222;
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: #777;
+    font-size: small;
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: #8b6fcb;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #333;
+      color: #ddd;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong,
+    b {
+      color: #eee;
+    }
+
+    a {
+      color: #8cc2dd;
+    }
+
+    code {
+      background-color: #777;
+    }
+
+    pre code {
+      color: #ddd;
+    }
+
+    blockquote {
+      color: #ccc;
+    }
+
+    textarea,
+    input {
+      background-color: #252525;
+      color: #ddd;
+    }
+
+    .helptext {
+      color: #aaa;
+    }
+  }
+
+</style>
+<style>
+    body {
+      font-family: Verdana, sans-serif;
+      margin: auto;
+      padding: 20px;
+      max-width: 720px;
+      text-align: left;
+      background-color: #fff;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      line-height: 1.5;
+      color: #ffffff;
+    }
+  
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong,
+    b {
+      color: #000000;
+    }
+  
+    a {
+      color: #3273dc;
+       
+    }
+  
+    .title {
+      text-decoration: none;
+      border: 0;
+    }
+  
+    .title span {
+      font-weight: 400;
+    }
+  
+    nav a {
+      margin-right: 10px;
+    }
+  
+    textarea {
+      width: 100%;
+      font-size: 16px;
+    }
+  
+    input {
+      font-size: 16px;
+    }
+  
+    content {
+      line-height: 1.6;
+    }
+  
+    table {
+      width: 100%;
+    }
+  
+    img {
+      max-width: 100%;
+    }
+  
+    code {
+      padding: 2px 5px;
+      background-color: #9c9c9c;
+    }
+  
+    pre code {
+      color: #222;
+      display: block;
+      padding: 20px;
+      white-space: pre-wrap;
+      font-size: 14px;
+      overflow-x: auto;
+    }
+  
+    div.highlight pre {
+      background-color: initial;
+      color: initial;
+    }
+  
+    div.highlight code {
+      background-color: unset;
+      color: unset;
+    }
+  
+    blockquote {
+      border-left: 1px solid #999;
+      color: #222;
+      padding-left: 20px;
+      font-style: italic;
+    }
+  
+    footer {
+      padding: 25px;
+      text-align: center;
+    }
+  
+    .helptext {
+      color: #777;
+      font-size: small;
+    }
+  
+    .errorlist {
+      color: #eba613;
+      font-size: small;
+    }
+  
+     
+    ul.blog-posts {
+      list-style-type: none;
+      padding: unset;
+    }
+  
+    ul.blog-posts li {
+      display: flex;
+    }
+  
+    ul.blog-posts li span {
+      flex: 0 0 130px;
+    }
+  
+    ul.blog-posts li a:visited {
+      color: #8b6fcb;
+    }
+  
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #ffffff;
+        color: #000000;
+      }
+  
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      strong,
+      b {
+        color: #000000;
+      }
+  
+      a {
+        color: #8cc2dd;
+      }
+  
+      code {
+        background-color: #777;
+      }
+  
+      pre code {
+        color: #ddd;
+      }
+  
+      blockquote {
+        color: #ccc;
+      }
+  
+      textarea,
+      input {
+        background-color: #252525;
+        color: #ddd;
+      }
+  
+      .helptext {
+        color: #aaa;
+      }
+    }
+  
+  </style>
+  
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+	  MathJax = {
+		      tex: {
+			            displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+			            inlineMath: [['\\(', '\\)']]                  
+			          },
+		      loader:{
+			            load: ['ui/safe']
+			          },
+		    };
+</script>
+
+  
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>Nikola Stoyanov</h2>
+</a>
+<nav><a href="/">Home</a>
+
+<a href="/bear/">Bear</a>
+
+
+<a href="/blog">Blog</a>
+
+</nav>
+</header>
+  <main>
+
+<h1>test</h1>
+<p>
+  <i>
+    <time datetime='2024-09-01' pubdate>
+      01 Sep, 2024
+    </time>
+  </i>
+</p>
+
+<content>
+  <p>CrackVis is a visualisation tool which uses <a href="https://www.vtk.org/">VTK</a> to display a point
+cloud from <a href="http://www.simulia.com/">ABAQUS</a> 2D simulations. The input is a csv file which holds
+data in the following format:</p>
+<table>
+<thead>
+<tr>
+<th>X</th>
+<th>Y</th>
+<th>Z1</th>
+<th>Z2</th>
+<th>&hellip;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+</tr>
+</tbody>
+</table>
+<p>Where \(X\) and \(Y\) are the coordinates of the nodes and \(Z_n\) is the
+data to be investigated.</p>
+<p>The tool will plot the point cloud which represents the nodal values
+and add a scalar bar. I had to write my own parser scripts to extract
+data from an ABAQUS .odb file to post-process other simulations,
+however, I re-purposed them for this case. The code can be found in
+<a href="https://github.com/NikStoyanov/phdfunc">this repository</a>. Feel free to modify for your own cases, the use of
+the tool is independent of the data you are plotting.</p>
+<h2 id="objective">Objective</h2>
+<p>The purpose of the script is to provide a visual perspective on the
+stress distribution of structural elements which can facilitate the
+seed of cohesive elements to model crack initiation and propagation.</p>
+<p>This is useful to consider when we are speaking of predefined crack
+paths i.e. we do not allow arbitrary propagation.</p>
+<h2 id="usage">Usage</h2>
+<p>To use the tool you need to import the CrackVis module, provide the
+file name and set user defined properties.</p>
+<p>The properties are:</p>
+<ul>
+<li>Scaling factor: otherwise the plot will be difficult to perceive in some cases.</li>
+<li>Feature: the column of the \(Z_n\) which is under investigation.</li>
+<li>Point size.</li>
+</ul>
+<p>This is a trail and error approach to make the plot fit your needs.
+If there is a better ways to do this let me know ¯\_(ツ)_/¯.</p>
+<h2 id="example">Example</h2>
+<p>Lets do an example! A simulation with ABAQUS has been ran on a plate
+with the following boundary conditions:</p>
+<ul>
+<li>\(U_1 = U_2 = 0\) on West.</li>
+<li>\(+F_1\) on East.</li>
+<li>A quadratic temperature function was applied with 0°C on the
+boundary and -160°C in the centre.</li>
+</ul>
+<p>They are quite unrealistic but good enough for a test case. A
+schematic is shown below.</p>
+<p><img src="./crackvis_schem.png" alt="png"></p>
+<p>Lets first import the crackvis module.</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> crackvis <span style="color:#f92672">import</span> VtkPointCloud, SetVtkWindow
+</span></span></code></pre></div><p>Then we define the user variables with the file we want to plot. In
+this case we are looking at the principal stress i.e. column 7 in our
+export file with a point size of 10 and we scale the values by \(10^8\).</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>filename <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;2D_Crack_Vis_m160C_200MPa.dat&#34;</span>
+</span></span><span style="display:flex;"><span>scale <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">**</span><span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>feature <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span>point_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+</span></span></code></pre></div><p>Finally, lets load the points in our <strong>VtkPointCloud</strong> object and the
+window using <strong>SetVtkWindow</strong>.</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>point_cloud <span style="color:#f92672">=</span> VtkPointCloud(filename, scale, feature, point_size)
+</span></span><span style="display:flex;"><span>point_cloud<span style="color:#f92672">.</span>load_data()
+</span></span><span style="display:flex;"><span>vtk_window <span style="color:#f92672">=</span> SetVtkWindow(point_cloud)
+</span></span></code></pre></div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p><img src="./crackvis_pstress.png" alt="png"></p>
+<!-- raw HTML omitted -->
+<p>We get this sweet 3D plot of the principal stress. Notice how
+pronounced it is in the top/bottom edges of the boundary - it
+definitely makes sense since some of the nodes in those finite
+elements cannot move in x/y! This is good!</p>
+<p>Lets also code this for the temperature!</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>scale <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>feature <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>point_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># display the temperature</span>
+</span></span><span style="display:flex;"><span>point_cloud <span style="color:#f92672">=</span> VtkPointCloud(filename, scale, feature, point_size)
+</span></span><span style="display:flex;"><span>point_cloud<span style="color:#f92672">.</span>load_data()
+</span></span><span style="display:flex;"><span>vtk_window <span style="color:#f92672">=</span> SetVtkWindow(point_cloud)
+</span></span></code></pre></div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<figure><img src="crackvis_temp.png" width="100%" height="100%">
+</figure>
+
+<!-- raw HTML omitted -->
+<p>And we can see the quadratic temperature function applied in the FE calculation.</p>
+<h2 id="vtk-scalar-bar-widget">VTK Scalar Bar Widget</h2>
+<p>An important part of this project which I need for my PhD is the
+scalar bar. As every true scientist I had to add this.</p>
+<p>The scalar bar implementation in VTK is based on building a lookup
+table and defining the minimum and maximum values of the input. All of
+this is done in the window interactor. Luckily, I already have this
+from my point cloud class since the points themselves are in a
+different interactor then the window.</p>
+<p>So lets create our lookup table. Notice how the hue is set to reflect
+true engineering notation, read as red=max, blue=min :)</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>self<span style="color:#f92672">.</span>lut <span style="color:#f92672">=</span> vtk<span style="color:#f92672">.</span>vtkLookupTable()
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>build_lut()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">build_lut</span>(self):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Creates the lookup table
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Returns:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        - lut (vtkLookupTable): lookup table with red=max, blue=min
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    self<span style="color:#f92672">.</span>lut<span style="color:#f92672">.</span>SetHueRange(<span style="color:#ae81ff">0.667</span>, <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    self<span style="color:#f92672">.</span>lut<span style="color:#f92672">.</span>Build()
+</span></span></code></pre></div><p>Then lets build the vtk mapper for the points, this will later be
+shared in the window actor where the scalar bar resides.</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>self<span style="color:#f92672">.</span>mapper <span style="color:#f92672">=</span> vtk<span style="color:#f92672">.</span>vtkPolyDataMapper()
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>mapper<span style="color:#f92672">.</span>SetInputData(self<span style="color:#f92672">.</span>vtkPolyData)
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>mapper<span style="color:#f92672">.</span>SetColorModeToDefault()
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>mapper<span style="color:#f92672">.</span>SetScalarVisibility(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>mapper<span style="color:#f92672">.</span>SetLookupTable(self<span style="color:#f92672">.</span>lut)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># create the actor</span>
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>vtkActor <span style="color:#f92672">=</span> vtk<span style="color:#f92672">.</span>vtkActor()
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>vtkActor<span style="color:#f92672">.</span>SetMapper(self<span style="color:#f92672">.</span>mapper)
+</span></span></code></pre></div><p>When the file is loaded we extract the minimum and maximum values with
+numpy and pass those to the mapper to render the colours correctly.</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">set_range</span>(self):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Sets the scalar range in z
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    self<span style="color:#f92672">.</span>mapper<span style="color:#f92672">.</span>SetScalarRange(self<span style="color:#f92672">.</span>min_data, self<span style="color:#f92672">.</span>max_data)
+</span></span></code></pre></div><p>Finally, we need to create the scalar bar in the window. This happens
+in <strong>SetVtkWindow</strong> and is a two stage process.</p>
+<p>First we need to add the point cloud actor in the window
+renderer. This will transfer the mapper as mentioned above. All of it
+is achieved in the constructor when the window object is created.</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>renderer <span style="color:#f92672">=</span> vtk<span style="color:#f92672">.</span>vtkRenderer()
+</span></span><span style="display:flex;"><span>renderer<span style="color:#f92672">.</span>AddActor(point_cloud<span style="color:#f92672">.</span>vtkActor)
+</span></span></code></pre></div><p>Then, we can build the scalar bar actor and the widget. They will
+inherit the hue and the scalar range we have set in the point cloud
+mapper.</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>scalar_bar <span style="color:#f92672">=</span> vtk<span style="color:#f92672">.</span>vtkScalarBarActor()
+</span></span><span style="display:flex;"><span>scalar_bar<span style="color:#f92672">.</span>SetOrientationToHorizontal()
+</span></span><span style="display:flex;"><span>scalar_bar<span style="color:#f92672">.</span>SetLookupTable(point_cloud<span style="color:#f92672">.</span>lut)
+</span></span><span style="display:flex;"><span>scalar_bar_widget <span style="color:#f92672">=</span> vtk<span style="color:#f92672">.</span>vtkScalarBarWidget()
+</span></span><span style="display:flex;"><span>scalar_bar_widget<span style="color:#f92672">.</span>SetInteractor(renderWindowInteractor)
+</span></span><span style="display:flex;"><span>scalar_bar_widget<span style="color:#f92672">.</span>SetScalarBarActor(scalar_bar)
+</span></span><span style="display:flex;"><span>scalar_bar_widget<span style="color:#f92672">.</span>On()
+</span></span></code></pre></div><p>Voilà we have a scalar bar!</p>
+<h2 id="full-code">Full Code</h2>
+<p>Lets also see how the full code works. Below is the code from my
+<a href="https://github.com/NikStoyanov/CrackVis">repository</a> and provided by <a href="https://gist-it.appspot.com/">gist-it</a>.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>The code consists of two classes:</p>
+<ul>
+<li><strong>VtkPointCloud</strong>: builds the point cloud by reading the data file and
+adding each point. It also sets the vtk mapper for the scalar bar.</li>
+<li><strong>SetVtkWindow</strong>: builds the window, renders the content of the point
+cloud and adds the scalar bar.</li>
+</ul>
+
+</content>
+<p>
+  
+</p>
+
+  </main>
+  <footer>Made with <a href="https://github.com/janraasch/hugo-bearblog/">Hugo ʕ•ᴥ•ʔ Bear</a>
+</footer>
+
+    
+</body>
+
+</html>

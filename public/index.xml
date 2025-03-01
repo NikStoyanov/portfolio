@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nikola Stoyanov</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Nikola Stoyanov</description>
+    <generator>Hugo</generator>
+    <language>en-US</language>
+    <copyright>Copyright © 2024, Nikola Stoyanov.</copyright>
+    <lastBuildDate>Sun, 14 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Understanding Adjoint Optimization</title>
+      <link>http://localhost:1313/understanding-adjoint-optimization/</link>
+      <pubDate>Sun, 14 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/understanding-adjoint-optimization/</guid>
+      <description>Understanding adjoints Writing up my PhD is a pain mainly because of the detailed explanations that need to be provided. A technique I used throughout my project is to solve parameter optimization problems using the adjoint method. I learned the technique and used it, but never really got it until reading an amazing paper. This post represents my notes and Julia implementation of the work detailed in https://math.mit.edu/~stevenj/18.336/adjoint.pdf by Steven G.</description>
+    </item>
+    <item>
+      <title>Exploring Fractals</title>
+      <link>http://localhost:1313/exploring-fractals/</link>
+      <pubDate>Thu, 02 Aug 2018 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/exploring-fractals/</guid>
+      <description>I recently rewatched a video from Arthur C. Clarke which is where I first saw what fractals are. I saw this video while I was in high school and having rewatched it now I wondered if I can generate the Mandelbrot set and explore some parts of it myself. I did a quick search online and I discovered that Jean Francois Puget had already done that and achieved great results. Learning from his work I decided to do some computational experiments.</description>
+    </item>
+    <item>
+      <title>Python and VTK scientific visualisation</title>
+      <link>http://localhost:1313/python-and-vtk-scientific-visualisation/</link>
+      <pubDate>Wed, 06 Jun 2018 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/python-and-vtk-scientific-visualisation/</guid>
+      <description>CrackVis is a visualisation tool which uses VTK to display a point cloud from ABAQUS 2D simulations. The input is a csv file which holds data in the following format:&#xA;X Y Z1 Z2 &amp;hellip; &amp;hellip; &amp;hellip; &amp;hellip; &amp;hellip; &amp;hellip; Where \(X\) and \(Y\) are the coordinates of the nodes and \(Z_n\) is the data to be investigated.&#xA;The tool will plot the point cloud which represents the nodal values and add a scalar bar.</description>
+    </item>
+  </channel>
+</rss>
