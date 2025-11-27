@@ -2,3 +2,4 @@ synch.sh
 */.ipynb_checkpoints/*
 public/*
 .hugo_build.lock
+.DS_Store
